@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Home - World Karate Dojo{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1 class="hero-title">TRADITION.<br>DISCIPLINE.<br>MASTERY.</h1>
+            <p class="hero-subtitle">Traditional martial arts training building skillsets in self-defense, discipline, leadership, respect, and fitness to help students in all they do.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="scrollToPrograms()">START YOUR JOURNEY</button>
+                <button class="btn btn-secondary">LEARN MORE</button>
+            </div>
+        </div>
+        <div class="hero-banner">
+            <img src="{{ url_for('static', filename='images/hero.jpg') }}" alt="Karate Training" class="hero-image">
+        </div>
+    </div>
+</section>
+
+<!-- Featured Programs Section -->
+<section class="programs-preview" id="programs-section">
+    <div class="container">
+        <h2 class="section-title">OUR PROGRAMS</h2>
+        <p class="section-subtitle">Choose the program that's right for you</p>
+        
+        <div class="programs-grid">
+            {% for program in programs %}
+            <div class="program-card">
+                <div class="program-card-image">
+                    <img src="{{ program.image or url_for('static', filename='images/default-program.jpg') }}" alt="{{ program.name }}">
+                </div>
+                <div class="program-card-content">
+                    <h3 class="program-name">{{ program.name }}</h3>
+                    <p class="program-age">{{ program.age_group }}</p>
+                    <p class="program-description">{{ program.description[:100] }}...</p>
+                    <div class="program-details">
+                        <span class="detail-item">⏰ {{ program.time }}</span>
+                        <span class="detail-item">📅 {{ program.days }}</span>
+                        <span class="detail-item">💰 {{ program.price }}</span>
+                    </div>
+                    <button class="btn btn-primary btn-small">ENROLL NOW</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="view-all-link">
+            <a href="/programs" class="link-button">View All Programs →</a>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="why-choose-us">
+    <div class="container">
+        <h2 class="section-title">WHY CHOOSE WORLD KARATE?</h2>
+        
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">🥋</div>
+                <h3>Expert Instructors</h3>
+                <p>Certified and experienced sensei dedicated to your growth and development.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">🏆</div>
+                <h3>Proven Results</h3>
+                <p>Students develop confidence, discipline, and self-defense skills that last a lifetime.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">👨‍👩‍👧‍👦</div>
+                <h3>Family Friendly</h3>
+                <p>Programs for all ages and skill levels. Train together or separately at your pace.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">🎯</div>
+                <h3>Belt Progression</h3>
+                <p>Clear path from white belt to black belt with regular testing opportunities.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">🌟</div>
+                <h3>Personal Development</h3>
+                <p>Build leadership, respect, and fitness alongside martial arts skills.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">🤝</div>
+                <h3>Supportive Community</h3>
+                <p>Join a welcoming dojo family that supports each other's journey.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Ready to Begin Your Martial Arts Journey?</h2>
+        <p>Try a FREE trial class with no commitment. Contact us today!</p>
+        <a href="/contact" class="btn btn-primary btn-large">CONTACT US</a>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+function scrollToPrograms() {
+    document.getElementById('programs-section').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+{% endblock %}

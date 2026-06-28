@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Programs - World Karate Dojo{% endblock %}
+
+{% block content %}
+<section style="padding: 4rem 2rem;">
+    <div class="container">
+        <h1 class="section-title">OUR PROGRAMS</h1>
+        <p class="section-subtitle">Find the perfect program for you</p>
+        
+        <div class="programs-grid">
+            {% for program in all_programs %}
+            <div class="program-card">
+                <div class="program-card-image" style="background: linear-gradient(135deg, #185FA5, #378ADD); height: 200px; display: flex; align-items: center; justify-content: center; color: white;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🥋</div>
+                        <div>{{ program.name }}</div>
+                    </div>
+                </div>
+                <div class="program-card-content">
+                    <h3 class="program-name">{{ program.name }}</h3>
+                    <p class="program-age">{{ program.age_group }}</p>
+                    <p class="program-description">{{ program.description }}</p>
+                    <div class="program-details">
+                        <span class="detail-item">⏰ {{ program.time }}</span>
+                        <span class="detail-item">📅 {{ program.days }}</span>
+                        <span class="detail-item">💰 {{ program.price }}</span>
+                    </div>
+                    <button class="btn btn-primary btn-small" onclick="alert('Enrollment feature coming soon!')">ENROLL NOW</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
