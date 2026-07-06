@@ -269,37 +269,26 @@ body {
    HERO SECTION
    ============================================ */
 
-.hero {
-    background: linear-gradient(135deg, rgba(232, 241, 248, 0.5) 0%, rgba(74, 144, 226, 0.5) 100%), 
-                url('/static/images/KARATEDO-01.jpg') center/cover;
+   .hero {
+    background:
+        linear-gradient(
+            rgba(20, 70, 130, 0.28),
+            rgba(20, 70, 130, 0.28)
+        ),
+        url('/static/images/KARATEDO-01.jpg');
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     background-attachment: fixed;
-    color: var(--white);
+
+    color: white;
     padding: 6rem 2rem;
     min-height: 700px;
+
     display: flex;
     align-items: center;
     position: relative;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(180deg, rgba(30, 90, 150, 0.4) 0%, rgba(74, 144, 226, 0.3) 100%);
-    z-index: 1;
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(30, 90, 150, 0.4);
-    z-index: 1;
 }
 
 .hero-content {
