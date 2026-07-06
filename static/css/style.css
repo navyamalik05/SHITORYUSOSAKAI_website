@@ -33,77 +33,124 @@ body {
 /* ============================================
    NAVIGATION WITH DROPDOWNS
    ============================================ */
+/* ===========================
+   HEADER
+=========================== */
 
-.navbar {
-    background-color: var(--white);
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-bottom: 3px solid var(--primary-blue);
+.site-header{
+
+    background:white;
+
+    text-align:center;
+
+    padding:35px 20px 25px;
+
 }
 
-.navbar-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.header-logos{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:90px;
+
+    margin-bottom:20px;
+
 }
 
-.navbar-logo {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: var(--primary-blue);
+.header-logo{
+
+    width:220px;
+
+    height:auto;
+
+    object-fit:contain;
+
 }
 
-.logo-img {
-    width: 55px;
-    height: 55px;
-    border-radius: 0%;
-    object-fit: contain;
+.site-title{
+
+    font-family:Georgia, serif;
+
+    font-size:3rem;
+
+    font-weight:bold;
+
+    color:#111;
+
+    letter-spacing:1px;
+
 }
 
-.dojo-name {
-    color: var(--text-dark);
-    font-weight: 700;
-    letter-spacing: 3px;
-    font-size: 1.2rem;
-    white-space: nowrap;
+.navbar{
+    background:#fff;
+    border-top:1px solid #ddd;
+    border-bottom:3px solid var(--primary-blue);
+    position:sticky;
+    top:0;
+    z-index:1000;
 }
 
-.nav-menu {
-    display: flex;
-    list-style: none;
-    gap: 0;
-    align-items: center;
+.navbar-container{
+    max-width:1500px;
+    margin:auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.nav-menu{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    list-style:none;
+
+    gap:18px;
+
+    padding:0;
+
+    margin:0;
+
 }
 
 .nav-item {
     position: relative;
 }
 
-.nav-link {
-    color: var(--text-dark);
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    padding: 1rem 1.2rem;
-    display: block;
+.nav-link{
+
+    display:block;
+
+    padding:20px 18px;
+
+    color:#111;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+    text-decoration:none;
+
+    transition:.3s;
+
 }
 
-.nav-link:hover {
-    color: var(--primary-blue);
-    background-color: var(--light-blue);
+.nav-link:hover{
+
+    color:var(--primary-blue);
+
 }
+
+
 
 .dropdown-arrow {
     font-size: 0.7rem;
