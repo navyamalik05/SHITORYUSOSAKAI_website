@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional martial arts training at World Karate Dojo">
-    <title>{% block title %}World Karate Dojo{% endblock %}</title>
+    <meta name="description" content="Professional martial arts training at SHITORYUSOSAKAI">
+    <title>{% block title %}SHITORYUSOSAKAI - Traditional Martial Arts{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
@@ -12,29 +12,57 @@
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-logo">
-                <img src="static/images/red_logo.png" alt="Red Logo" class="logo-img" style="width: 60px; height: 60px;">
+                <img src="{{ url_for('static', filename='images/red-logo.png') }}" alt="Red Logo" class="logo-img">
                 <span class="dojo-name">SHITORYUSOSAKAI</span>
-                <img src="static/images/orange_logo.png" alt="Orange Logo" class="logo-img" style="width: 60px; height: 60px;">
+                <img src="{{ url_for('static', filename='images/orange-logo.png') }}" alt="Orange Logo" class="logo-img">
             </div>
             
             <ul class="nav-menu" id="nav-menu">
                 <li class="nav-item">
                     <a href="/" class="nav-link">HOME</a>
                 </li>
-                <li class="nav-item">
-                    <a href="/about" class="nav-link">ABOUT US</a>
+                
+                <li class="nav-item dropdown">
+                    <a href="/about" class="nav-link">ABOUT US <span class="dropdown-arrow">V</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/about#history">History</a></li>
+                        <li><a href="/about#mission">Our Mission</a></li>
+                        <li><a href="/about#founder">Founder</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="/programs" class="nav-link">PROGRAMS</a>
+                
+                <li class="nav-item dropdown">
+                    <a href="/programs" class="nav-link">PROGRAMS <span class="dropdown-arrow">V</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/programs?type=karatedo">KarateDō</a></li>
+                        <li><a href="/programs?type=kobudo">Kōbudō</a></li>
+                        <li><a href="/programs?type=iaido">Iaidō</a></li>
+                        <li><a href="/programs?type=taijutsu">Taijutsu</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="/events" class="nav-link">EVENTS</a>
+                
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link">AFFILIATED DŌJŌS <span class="dropdown-arrow">V</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#dojos">Members Chart</a></li>
+                        <li><a href="#dojos">Dōjōs</a></li>
+                        <li><a href="#news">News & Events</a></li>
+                    </ul>
                 </li>
+                
                 <li class="nav-item">
-                    <a href="/contact" class="nav-link">CONTACT</a>
+                    <a href="#" class="nav-link">HALL OF FAME</a>
                 </li>
+                
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link">MEMBERS <span class="dropdown-arrow">V</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#members">Training program</a></li>
+                    </ul>
+                </li>
+                
                 <li class="nav-item">
-                    <a href="#" class="nav-link nav-cta">SIGN UP NOW</a>
+                    <a href="/contact" class="nav-link">CONTACT US</a>
                 </li>
             </ul>
             
@@ -56,8 +84,8 @@
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section">
-                <h3>WORLD KARATE</h3>
-                <p>Traditional martial arts training building discipline, respect, and personal growth.</p>
+                <h3>SHITORYUSOSAKAI</h3>
+                <p>Preserving and promoting traditional Japanese martial arts through the principles of Budō.</p>
             </div>
             
             <div class="footer-section">
@@ -68,9 +96,9 @@
             
             <div class="footer-section">
                 <h4>Contact</h4>
-                <p>📍 123 Dojo Street, Your City</p>
                 <p>📞 (555) 123-4567</p>
-                <p>✉️ info@worldkarate.com</p>
+                <p>✉️ info@shitoryusosakai.com</p>
+                <p>📍 123 Dojo Street, Your City</p>
             </div>
             
             <div class="footer-section">
@@ -84,7 +112,7 @@
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; 2024 World Karate Dojo. All rights reserved.</p>
+            <p>&copy; 2024 SHITORYUSOSAKAI. All rights reserved.</p>
         </div>
     </footer>
 

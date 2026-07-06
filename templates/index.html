@@ -1,21 +1,39 @@
 {% extends "base.html" %}
 
-{% block title %}Home - World Karate Dojo{% endblock %}
+{% block title %}Home - SHITORYUSOSAKAI{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
+
+<!-- Hero Section with Background Image -->
 <section class="hero">
+    <div class="hero-overlay"></div>
     <div class="hero-content">
-        <div class="hero-text">
-            <h1 class="hero-title">TRADITION.<br>DISCIPLINE.<br>MASTERY.</h1>
-            <p class="hero-subtitle">Traditional martial arts training building skillsets in self-defense, discipline, leadership, respect, and fitness to help students in all they do.</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary" onclick="scrollToPrograms()">START YOUR JOURNEY</button>
-                <button class="btn btn-secondary">LEARN MORE</button>
-            </div>
+        <h1 class="hero-title">TRADITION.<br>DISCIPLINE.<br>MASTERY.</h1>
+        <p class="hero-subtitle">Traditional martial arts training building skillsets in self-defense, discipline, leadership, respect, and fitness to help students in all they do.</p>
+        <div class="hero-buttons">
+            <button class="btn btn-primary" onclick="scrollToPrograms()">START YOUR JOURNEY</button>
+            <button class="btn btn-secondary">LEARN MORE</button>
         </div>
-        <div class="hero-banner">
-            <img src="{{ url_for('static', filename='images/hero.jpg') }}" alt="Karate Training" class="hero-image">
+    </div>
+</section>
+
+<!-- Welcome Section -->
+<section class="welcome-section">
+    <div class="welcome-container">
+        <div class="welcome-image">
+            <img src="{{ url_for('static', filename='images/KARATEDO-01.jpg') }}" alt="Martial Arts Training" class="welcome-img">
+        </div>
+        <div class="welcome-text">
+            <h2>WELCOME</h2>
+            <p>We are an organization dedicated to preserving and promoting traditional Japanese martial arts through the principles of Budō. Our mission is to faithfully carry forward the legacy of Sōke Kenwa Mabuni, cultivating practitioners who embody discipline, respect, excellence, and the true martial spirit.</p>
+            <p>Our programs focus on:</p>
+            <ul class="welcome-list">
+                <li>Karatē-Dō - Traditional Okinawan Karate</li>
+                <li>Budō Principles - Discipline, respect, and personal growth</li>
+                <li>Self-Defense - Practical and effective techniques</li>
+                <li>Character Development - Building confidence and leadership</li>
+                <li>Community - Training together with purpose</li>
+            </ul>
         </div>
     </div>
 </section>
@@ -53,10 +71,34 @@
     </div>
 </section>
 
+<!-- Founder Section -->
+<section class="founder-section">
+    <div class="founder-container">
+        <h2 class="section-title">FOUNDER</h2>
+        <div class="founder-content">
+            <div class="founder-image">
+                <img src="{{ url_for('static', filename='images/founder.jpg') }}" alt="Founder" class="founder-img">
+            </div>
+            <div class="founder-info">
+                <h3>Sōke Kenwa Mabuni</h3>
+                <p class="founder-title">Founder of Shitoryū Karate</p>
+                <p>Kenwa Mabuni (1889-1952) was a legendary Okinawan master who founded Shitoryū (Shitoryu) Karate. He dedicated his life to preserving traditional Okinawan karate and blending it with techniques from other styles to create a comprehensive martial system.</p>
+                <p>His philosophy emphasized:</p>
+                <ul class="founder-list">
+                    <li>Unity of martial arts (合一 - Gō Ichi)</li>
+                    <li>Respect for tradition and innovation</li>
+                    <li>Development of moral character</li>
+                    <li>Service to society through martial arts</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Why Choose Us Section -->
 <section class="why-choose-us">
     <div class="container">
-        <h2 class="section-title">WHY CHOOSE WORLD KARATE?</h2>
+        <h2 class="section-title">WHY CHOOSE SHITORYUSOSAKAI?</h2>
         
         <div class="benefits-grid">
             <div class="benefit-card">
@@ -85,8 +127,8 @@
             
             <div class="benefit-card">
                 <div class="benefit-icon">🌟</div>
-                <h3>Personal Development</h3>
-                <p>Build leadership, respect, and fitness alongside martial arts skills.</p>
+                <h3>Traditional Methods</h3>
+                <p>Learn authentic Shitoryū techniques passed down through generations.</p>
             </div>
             
             <div class="benefit-card">
