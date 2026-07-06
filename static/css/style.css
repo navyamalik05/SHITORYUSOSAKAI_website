@@ -623,6 +623,52 @@ body {
     }
 }
 
+/* Translation Element Container on top right */
+.translation-wrapper {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 5px 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+/* Image 1 adjustments: scale it up and make it look professional */
+.welcome-image.enhanced-view {
+    flex: 1;
+    min-width: 450px; /* Expands width footprint */
+}
+.welcome-img-large {
+    width: 100%;
+    height: auto;
+    max-height: 500px; /* Gives it more height presence */
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Image 2 adjustments: downscale and fit frame so both faces show clearly */
+.founder-image.full-portrait-view {
+    flex: 1;
+    max-width: 400px;
+    height: 400px;
+    background: #f8f9fa; /* Elegant fallback container color */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.founder-img-scaled {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Prevents extreme crops, zooming out to show both faces */
+    padding: 10px;       /* Adds breathing space around the canvas frame */
+}
+
 /* ============================================
    BUTTONS
    ============================================ */
