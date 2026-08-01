@@ -88,6 +88,18 @@ HTML/CSS/JS files that any web host can serve. You'd typically have Flask (or
 another server) serve the contents of `dist/` and continue handling `/api/...`
 requests.
 
+## Deploying on Render
+
+This repository includes a `render.yaml` Blueprint configured for a Render
+static site. From the Render dashboard, create a new Blueprint and connect this
+GitHub repository. Render will run `npm ci && npm run build`, publish `dist`,
+and rewrite application routes to `index.html` so React Router links work when
+opened or refreshed directly.
+
+The current contact form posts to the Flask endpoint at `/api/contact`. A static
+site does not run that backend, so deploy the Flask API separately before using
+the form in production.
+
 ## What changed from the old HTML/CSS version
 
 - Every page is now a React **component** instead of a Jinja template —

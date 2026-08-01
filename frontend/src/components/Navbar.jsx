@@ -59,12 +59,13 @@ export default function Navbar() {
           </li>
 
           <li className="nav-item dropdown">
-            <a href="#" className="nav-link" onClick={(e) => e.preventDefault()}>
+            <Link to="/members" className="nav-link" onClick={closeMenu}>
               MEMBERS
               <span className="dropdown-arrow"></span>
-            </a>
+            </Link>
             <ul className="dropdown-menu">
-              <li><a href="#" onClick={(e) => e.preventDefault()}>Training Program</a></li>
+              <li><Link to="/members#training-program" onClick={closeMenu}>Training Program</Link></li>
+              <li><Link to="/members#chart" onClick={closeMenu}>Chart</Link></li>
             </ul>
           </li>
 

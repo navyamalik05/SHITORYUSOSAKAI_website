@@ -1,12 +1,70 @@
-export default function Programs() {
+import { useEffect, useRef, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+
+function ProgramAccordion({ id, title, isOpen, onToggle, children }) {
+  const itemRef = useRef(null)
+
+  useEffect(() => {
+    if (isOpen && window.location.hash === `#${id}`) {
+      window.requestAnimationFrame(() => {
+        itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+    }
+  }, [id, isOpen])
+
   return (
-    <section style={{ padding: '4rem 2rem' }}>
+    <article className={`program-accordion ${isOpen ? 'is-open' : ''}`} id={id} ref={itemRef}>
+      <h2 className="program-accordion-heading">
+        <button
+          type="button"
+          className="program-accordion-trigger"
+          aria-expanded={isOpen}
+          aria-controls={`${id}-content`}
+          onClick={() => onToggle(id)}
+        >
+          <span>{title}</span>
+          <span className="program-accordion-icon" aria-hidden="true">+</span>
+        </button>
+      </h2>
+      <div
+        className="program-accordion-content"
+        id={`${id}-content`}
+        hidden={!isOpen}
+      >
+        {children}
+      </div>
+    </article>
+  )
+}
+
+const programIds = ['karatedo', 'kobudo', 'taijutsu', 'iaido', 'ninpo']
+
+export default function Programs() {
+  const location = useLocation()
+  const requestedProgram = location.hash.slice(1)
+  const [openProgram, setOpenProgram] = useState(
+    programIds.includes(requestedProgram) ? requestedProgram : null
+  )
+
+  useEffect(() => {
+    const id = location.hash.slice(1)
+    if (programIds.includes(id)) setOpenProgram(id)
+  }, [location.hash])
+
+  const toggleProgram = (id) => {
+    setOpenProgram((current) => current === id ? null : id)
+    window.history.replaceState(null, '', `/programs#${id}`)
+  }
+
+  return (
+    <section className="programs-page">
       <div className="container">
         <h1 className="section-title">OUR MARTIAL ART PROGRAMS</h1>
         <p className="section-subtitle">Five traditional Japanese martial arts, preserved and taught by Budō Sosa-Kai</p>
 
         {/* KARATEDŌ SHITŌ-RYŪ */}
-        <div className="program-full-card" id="karatedo">
+        <ProgramAccordion id="karatedo" title="KarateDō Shitō-Ryū Sosa-Kai" isOpen={openProgram === 'karatedo'} onToggle={toggleProgram}>
+        <div className="program-full-card">
           <div className="program-logo-col">
             <img src="/images/logo-karatedo.jpg" alt="KarateDō Shitō-Ryū Sosa-Kai logo" />
             <img className="program-demo-img" src="/images/demo-karatedo.jpg" alt="KarateDō demonstration" />
@@ -21,9 +79,11 @@ export default function Programs() {
             <p><strong>Sosa-Kai:</strong> The primary objective of Sosa-Kai is to preserve the teachings of Sōke Kenwa Mabuni by promoting the correct transmission of Shitō-Ryū, including both its techniques and its traditional Kata. Our technical and philosophical foundation is based on the teachings received from Nidaime Sōke Kenei Mabuni, the founder's son, and Saikō Shihan Nobuyoshi Murata, both of whom devoted their lives to faithfully preserving the legacy of Shitō-Ryū.</p>
           </div>
         </div>
+        </ProgramAccordion>
 
         {/* RYŪKYŪ KOBUDŌ */}
-        <div className="program-full-card" id="kobudo">
+        <ProgramAccordion id="kobudo" title="Ryūkyū Kobudō Tora-Ryū" isOpen={openProgram === 'kobudo'} onToggle={toggleProgram}>
+        <div className="program-full-card">
           <div className="program-logo-col">
             <img src="/images/logo-kobudo.jpg" alt="Ryūkyū Kobudō Tora-Ryū logo" />
             <img className="program-demo-img" src="/images/demo-kobudo.jpg" alt="Ryūkyū Kobudō demonstration" />
@@ -36,9 +96,11 @@ export default function Programs() {
             <p>Among the greatest achievements of Sosa-Kai was the Ryūkyū Kobudō demonstration performed by Daishi Jorge Sosa Sr. and Hanshi Jorge Sosa Jr. at the Coca-Cola Stadium in Pretoria, South Africa in 1973, before an audience of approximately 20,000 spectators.</p>
           </div>
         </div>
+        </ProgramAccordion>
 
         {/* TAI-JŪTSU GODAI-RYŪ */}
-        <div className="program-full-card" id="taijutsu">
+        <ProgramAccordion id="taijutsu" title="Tai-Jūtsu Godai-Ryū" isOpen={openProgram === 'taijutsu'} onToggle={toggleProgram}>
+        <div className="program-full-card">
           <div className="program-logo-col">
             <img src="/images/logo-taijutsu.png" alt="Tai-Jūtsu Godai-Ryū emblem" />
             <img className="program-demo-img" src="/images/demo-taijutsu.jpg" alt="Tai-Jūtsu demonstration" />
@@ -51,9 +113,11 @@ export default function Programs() {
             <p>Tai-Jūtsu Godai-Ryū is described by Daishi Jorge Sosa Sr. as <em>"the grandson of Jūjutsu,"</em> as it represents the integration of the principles of Jūjutsu, Jūdō, and KarateDō, combining their teachings to create a more practical and adaptable system for real-life defense situations.</p>
           </div>
         </div>
+        </ProgramAccordion>
 
         {/* IAIDŌ TORA-RYŪ */}
-        <div className="program-full-card" id="iaido">
+        <ProgramAccordion id="iaido" title="Iaidō Tora-Ryū" isOpen={openProgram === 'iaido'} onToggle={toggleProgram}>
+        <div className="program-full-card">
           <div className="program-logo-col">
             <img src="/images/logo-iaido.jpg" alt="Iaidō Tora-Ryū logo" />
             <img className="program-demo-img" src="/images/demo-iaido.jpg" alt="Iaidō demonstration" />
@@ -66,9 +130,11 @@ export default function Programs() {
             <p className="maxim">"The art of perfecting the individual through the correct practice of Japanese swordsmanship, seeking to achieve harmony, discipline, and inner enlightenment."</p>
           </div>
         </div>
+        </ProgramAccordion>
 
         {/* NINPŌ / NINJŪTSU */}
-        <div className="program-full-card" id="ninpo">
+        <ProgramAccordion id="ninpo" title="Ninpō / Ninjūtsu" isOpen={openProgram === 'ninpo'} onToggle={toggleProgram}>
+        <div className="program-full-card">
           <div className="program-logo-col">
             <img src="/images/logo-ninpo.jpg" alt="Ninpō Ninjūtsu logo" />
             <img className="program-demo-img" src="/images/demo-ninpo.jpg" alt="Ninpō demonstration" />
@@ -81,9 +147,10 @@ export default function Programs() {
             <p>Ninjūtsu is one of Japan's oldest martial traditions, tracing back to the Asuka and Heian periods, reaching its greatest development during the Kamakura and Sengoku periods, when the need for intelligence gathering, reconnaissance, and special operations gave rise to the warriors known as Ninja or Shinobi. Beyond their popular image, authentic Ninjūtsu emphasizes intelligence, discipline, patience, and the ability to resolve conflict through strategy before resorting to force.</p>
           </div>
         </div>
+        </ProgramAccordion>
 
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-          <a href="/contact" className="btn btn-primary btn-large">CONTACT US TO GET STARTED</a>
+          <Link to="/contact" className="btn btn-primary btn-large">CONTACT US TO GET STARTED</Link>
         </div>
       </div>
     </section>
