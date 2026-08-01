@@ -4,10 +4,11 @@ from flask_cors import CORS
 from datetime import datetime
 import os
 
-# Initialize Flask app
-# static_folder points at the built React app (frontend/dist), which is
-# created by running `npm run build` inside the frontend/ folder.
-app = Flask(__name__, static_folder='frontend/dist', static_url_path='')
+# Initialize Flask without its automatic static route. The catch-all route
+# below serves real files from the React build and falls back to index.html
+# for client-side routes such as /programs and /members.
+DIST_DIR = os.path.join(os.path.dirname(__file__), 'frontend', 'dist')
+app = Flask(__name__)
 CORS(app)
 
 # Configuration
@@ -216,10 +217,10 @@ def manage_student(id):
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve_react(path):
-    full_path = os.path.join(app.static_folder, path)
+    full_path = os.path.join(DIST_DIR, path)
     if path != '' and os.path.exists(full_path):
-        return send_from_directory(app.static_folder, path)
-    return send_from_directory(app.static_folder, 'index.html')
+        return send_from_directory(DIST_DIR, path)
+    return send_from_directory(DIST_DIR, 'index.html')
 
 
 # ============================================
