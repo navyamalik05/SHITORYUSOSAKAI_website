@@ -254,6 +254,15 @@ def init_db():
 if __name__ == '__main__':
     init_db()
     port = int(os.environ.get('PORT', 5001))
+    if os.environ.get('RENDER'):
+        os.execvp('gunicorn', [
+            'gunicorn',
+            'app:app',
+            '--bind',
+            f'0.0.0.0:{port}',
+            '--workers',
+            '1'
+        ])
     app.run(debug=True, host='0.0.0.0', port=port)
 else:
     # When run by gunicorn on Render, __name__ != '__main__', so make sure
