@@ -97,9 +97,16 @@ export default function Contact() {
 
         <div className="contact-info" style={{ marginTop: '3rem', textAlign: 'center' }}>
           <h3>Other Ways to Reach Us</h3>
-          <p>📞 (555) 123-4567</p>
-          <p>✉️ info@worldbudososakai.com</p>
-          <p>📍 123 Dojo Street, Your City, State 12345</p>
+          <p><a href="tel:+19095507670">📞 (909) 550-76-70</a></p>
+          <p><a href="mailto:hanshi18@gmail.com">✉️ hanshi18@gmail.com</a></p>
+          <address>📍 Jessie Turner Health &amp; Fitness Community Center<br />15556 Summit Avenue<br />Fontana, CA. U.S.A.</address>
+          <p className="contact-hours"><strong>Class Hours:</strong><br />Tue &amp; Thu:<br />4:00 PM–5:00 PM<br />5:00 PM–6:00 PM<br />6:00 PM–7:00 PM</p>
+          <div className="contact-social-links">
+            <a href="https://www.facebook.com/sosakai54/" target="_blank" rel="noreferrer">Facebook: Sosa-Kai 54</a>
+            <a href="https://www.facebook.com/budososakai/" target="_blank" rel="noreferrer">Facebook: Budō Sosa-Kai</a>
+            <a href="https://www.instagram.com/budososakai/" target="_blank" rel="noreferrer">Instagram: Budō Sosa-Kai</a>
+            <a href="https://www.instagram.com/sr.jorgesosa/" target="_blank" rel="noreferrer">Instagram: Sr. Jorge Sosa</a>
+          </div>
         </div>
       </div>
     </section>

@@ -127,7 +127,7 @@ export default function Home() {
           <h2 className="section-title">FOUNDER</h2>
           <div className="founder-content">
             <div className="founder-image">
-              <img src="/images/founder-sosa-sr.jpg" alt="Sōke - Daishi Jorge Sosa Sr." className="founder-img" />
+              <img src="/images/founder-jorge-sosa-sr.png" alt="Sōke - Daishi Jorge Sosa Sr." className="founder-img" />
             </div>
             <div className="founder-info">
               <h3>Sōke – Daishi Jorge Sosa Sr.</h3>

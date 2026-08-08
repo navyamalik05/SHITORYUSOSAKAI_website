@@ -22,9 +22,8 @@ export default function Navbar() {
               <span className="dropdown-arrow"></span>
             </Link>
             <ul className="dropdown-menu">
-              <li><Link to="/about#history" onClick={closeMenu}>History</Link></li>
-              <li><Link to="/about#mission" onClick={closeMenu}>Mission</Link></li>
-              <li><Link to="/about#founder" onClick={closeMenu}>Founder</Link></li>
+              <li><Link to="/about#philosophy-principles" onClick={closeMenu}>Philosophy &amp; Principles</Link></li>
+              <li><Link to="/about#technical-staff" onClick={closeMenu}>Technical Staff</Link></li>
             </ul>
           </li>
 
@@ -35,22 +34,22 @@ export default function Navbar() {
             </Link>
             <ul className="dropdown-menu">
               <li><Link to="/programs#karatedo" onClick={closeMenu}>KarateDō</Link></li>
-              <li><Link to="/programs#kobudo" onClick={closeMenu}>Kōbudō</Link></li>
-              <li><Link to="/programs#taijutsu" onClick={closeMenu}>Tai-Jūtsu</Link></li>
+              <li><Link to="/programs#kobudo" onClick={closeMenu}>Ryū Kyū Kobudō</Link></li>
+              <li><Link to="/programs#taijutsu" onClick={closeMenu}>Taijutsu</Link></li>
               <li><Link to="/programs#iaido" onClick={closeMenu}>Iaidō</Link></li>
               <li><Link to="/programs#ninpo" onClick={closeMenu}>Ninpō</Link></li>
             </ul>
           </li>
 
           <li className="nav-item dropdown">
-            <a href="#" className="nav-link" onClick={(e) => e.preventDefault()}>
+            <Link to="/affiliated-dojos" className="nav-link" onClick={closeMenu}>
               AFFILIATED DŌJŌS
               <span className="dropdown-arrow"></span>
-            </a>
+            </Link>
             <ul className="dropdown-menu">
-              <li><a href="#" onClick={(e) => e.preventDefault()}>Members Chart</a></li>
-              <li><a href="#" onClick={(e) => e.preventDefault()}>Dōjōs</a></li>
-              <li><a href="#" onClick={(e) => e.preventDefault()}>News & Events</a></li>
+              <li><Link to="/affiliated-dojos#black-belt-chart" onClick={closeMenu}>Black Belt Chart</Link></li>
+              <li><Link to="/affiliated-dojos#dojos-chart" onClick={closeMenu}>Dōjōs Chart</Link></li>
+              <li><Link to="/events" onClick={closeMenu}>News &amp; Events</Link></li>
             </ul>
           </li>
 
