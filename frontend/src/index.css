@@ -700,7 +700,9 @@ body {
 .philosophy-gallery img {
     width: min(18%, 185px);
     height: 210px;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center top;
+    background: #f4f7fa;
     border-radius: 5px;
 }
 
@@ -777,7 +779,9 @@ body {
 .staff-gallery img {
     width: min(22%, 190px);
     height: 250px;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center top;
+    background: #f4f7fa;
     border-radius: 5px;
 }
 
@@ -1004,14 +1008,23 @@ body {
 .founder-image {
     display: flex;
     justify-content: center;
+    width: 100%;
+    max-width: 470px;
+    aspect-ratio: 628 / 910;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 1px solid #d8e2ec;
+    border-radius: 8px;
+    background: #f4f7fa;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
 }
 
 .founder-img {
     width: 100%;
-    max-width: 350px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    max-width: none;
+    height: 100%;
+    object-fit: contain;
+    object-position: center top;
 }
 
 .founder-info h3 {
