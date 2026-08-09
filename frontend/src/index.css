@@ -649,6 +649,229 @@ body {
     margin-bottom: 1rem;
 }
 
+/* ============================================
+   ABOUT DOCUMENTS & MEMBER CHART
+   ============================================ */
+
+.about-page {
+    background: #f4f7fa;
+}
+
+.about-document,
+.technical-staff-section {
+    padding: 4.5rem 2rem;
+}
+
+.technical-staff-section {
+    background: var(--white);
+}
+
+.document-container {
+    max-width: 1040px;
+    text-align: center;
+}
+
+.document-emblem {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 50%;
+    margin-bottom: 1.25rem;
+}
+
+.document-title {
+    color: #111;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.12;
+    margin-bottom: 2rem;
+}
+
+.philosophy-gallery,
+.staff-gallery,
+.discipline-logos {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 auto 2.5rem;
+}
+
+.philosophy-gallery img {
+    width: min(18%, 185px);
+    height: 210px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.document-copy {
+    max-width: 880px;
+    margin: 0 auto;
+    color: #242424;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.08rem;
+    line-height: 1.78;
+    text-align: left;
+}
+
+.document-copy h2 {
+    color: var(--primary-blue);
+    font-size: 1.55rem;
+    margin: 2.2rem 0 0.65rem;
+}
+
+.document-copy p {
+    margin-bottom: 1.2rem;
+}
+
+.document-download {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.5rem;
+    padding: 0.8rem 1.2rem;
+    border: 2px solid var(--primary-blue);
+    border-radius: 4px;
+    color: var(--primary-blue);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.document-download:hover,
+.document-download:focus-visible {
+    background: var(--primary-blue);
+    color: var(--white);
+}
+
+.discipline-logos {
+    flex-wrap: wrap;
+}
+
+.discipline-logos img {
+    width: 125px;
+    height: 125px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.staff-profile {
+    padding: 2.5rem 0 3.5rem;
+    border-top: 1px solid #d8e2ec;
+    scroll-margin-top: 100px;
+}
+
+.staff-profile h2 {
+    color: #111;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    text-decoration: underline;
+}
+
+.staff-years {
+    margin: 0.6rem 0 1.5rem;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+.staff-gallery img {
+    width: min(22%, 190px);
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.member-chart-panel {
+    max-width: 1040px;
+    margin: 0 auto;
+    outline: none;
+}
+
+.chart-introduction {
+    padding: 2rem;
+    border-radius: 8px;
+    background: var(--white);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.chart-introduction h2 {
+    color: var(--primary-blue);
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+}
+
+.chart-kicker {
+    color: #111;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.chart-page-list {
+    display: grid;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.chart-page {
+    overflow: hidden;
+    border: 1px solid #d8e2ec;
+    border-radius: 8px;
+    background: var(--white);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.chart-page img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.chart-page figcaption {
+    padding: 0.7rem 1rem;
+    border-top: 1px solid #d8e2ec;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .about-document,
+    .technical-staff-section,
+    .members-page {
+        padding: 3rem 0.5rem;
+    }
+
+    .philosophy-gallery,
+    .staff-gallery {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .philosophy-gallery img,
+    .staff-gallery img {
+        width: 100%;
+        height: 220px;
+    }
+
+    .philosophy-gallery img:first-child {
+        grid-column: 1 / -1;
+    }
+
+    .document-copy {
+        font-size: 1rem;
+    }
+
+    .member-tabs {
+        flex-wrap: wrap;
+    }
+
+    .member-tab {
+        flex: 1 1 160px;
+        text-align: center;
+    }
+}
+
 .program-full-card .program-logo-col {
     display: flex;
     flex-direction: column;
