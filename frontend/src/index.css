@@ -697,9 +697,17 @@ body {
     margin: 0 auto 2.5rem;
 }
 
+.philosophy-gallery {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: center;
+    max-width: 1000px;
+}
+
 .philosophy-gallery img {
-    width: min(18%, 185px);
-    height: 210px;
+    width: 100%;
+    height: 260px;
+    padding: 0.35rem;
     object-fit: contain;
     object-position: center top;
     background: #f4f7fa;
@@ -778,7 +786,8 @@ body {
 
 .staff-gallery img {
     width: min(22%, 190px);
-    height: 250px;
+    height: 290px;
+    padding: 0.35rem;
     object-fit: contain;
     object-position: center top;
     background: #f4f7fa;
@@ -850,12 +859,15 @@ body {
     .staff-gallery {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
     }
 
     .philosophy-gallery img,
     .staff-gallery img {
         width: 100%;
-        height: 220px;
+        height: 260px;
+        object-fit: contain;
+        object-position: center top;
     }
 
     .philosophy-gallery img:first-child {
@@ -999,7 +1011,7 @@ body {
 
 .founder-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(500px, 1fr) minmax(0, 1fr);
     gap: 3rem;
     align-items: center;
     margin-top: 3rem;
@@ -1009,7 +1021,7 @@ body {
     display: flex;
     justify-content: center;
     width: 100%;
-    max-width: 470px;
+    max-width: 580px;
     aspect-ratio: 628 / 910;
     margin: 0 auto;
     overflow: hidden;
