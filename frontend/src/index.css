@@ -174,7 +174,7 @@ body {
     left: 0;
     background-color: var(--white);
     list-style: none;
-    min-width: 200px;
+    min-width: 240px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     opacity: 0;
     visibility: hidden;
@@ -198,6 +198,10 @@ body {
     font-weight: 500;
     transition: all 0.3s ease;
     border-left: 3px solid transparent;
+}
+
+.nav-item:nth-child(4) .dropdown-menu {
+    min-width: 260px;
 }
 
 .dropdown-menu li a:hover {
@@ -1308,6 +1312,200 @@ body {
     padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     opacity: 0.8;
+}
+
+.site-credit {
+    margin-top: 0.4rem;
+}
+
+.site-credit a {
+    color: #b9dcff;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.site-credit a:hover,
+.site-credit a:focus-visible {
+    color: var(--white);
+}
+
+/* ============================================
+   HISTORY AND LEGACY
+   ============================================ */
+
+.history-page {
+    background: #f4f7fa;
+}
+
+.history-hero {
+    padding: 4.5rem 2rem;
+    background: linear-gradient(135deg, #0e3963, var(--primary-blue));
+    color: var(--white);
+    text-align: center;
+}
+
+.history-hero h1 {
+    margin: 0.25rem 0 0.75rem;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.5rem, 6vw, 4.6rem);
+    line-height: 1.05;
+}
+
+.history-hero > .history-container > p:last-child {
+    max-width: 720px;
+    margin: 0 auto;
+    font-size: 1.15rem;
+}
+
+.history-kicker {
+    color: #cce3fa;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+}
+
+.history-container {
+    max-width: 1040px;
+}
+
+.history-document {
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+}
+
+.history-section {
+    position: relative;
+    margin-bottom: 2rem;
+    padding: 2.5rem clamp(1.25rem, 4vw, 3.5rem);
+    border-radius: 10px;
+    background: var(--white);
+    box-shadow: 0 5px 18px rgba(13, 52, 88, 0.09);
+    scroll-margin-top: 100px;
+}
+
+.history-section-number {
+    margin-bottom: 0.2rem;
+    color: var(--accent-blue);
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+}
+
+.history-section h2 {
+    margin-bottom: 1rem;
+    color: var(--primary-blue);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+}
+
+.history-section h3 {
+    margin: 1.5rem 0 0.5rem;
+    color: #203a56;
+    font-family: Georgia, 'Times New Roman', serif;
+}
+
+.history-section > p:not(.history-section-number) {
+    margin-bottom: 1.1rem;
+    color: #343b42;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.04rem;
+    line-height: 1.8;
+}
+
+.history-gallery {
+    display: grid;
+    gap: 1.25rem;
+    margin: 2rem 0;
+    align-items: stretch;
+}
+
+.history-gallery-two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.history-gallery-four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.history-figure {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 1.75rem auto;
+    border: 1px solid #d8e2ec;
+    border-radius: 8px;
+    background: #f8fafc;
+}
+
+.history-gallery .history-figure {
+    width: 100%;
+    margin: 0;
+}
+
+.history-figure img {
+    display: block;
+    width: 100%;
+    height: 340px;
+    padding: 0.6rem;
+    object-fit: contain;
+    object-position: center;
+    background: var(--white);
+}
+
+.history-gallery-four .history-figure img {
+    height: 360px;
+}
+
+.history-figure-wide {
+    max-width: 760px;
+}
+
+.history-figure-wide img {
+    height: auto;
+    max-height: 540px;
+}
+
+.history-figure figcaption {
+    padding: 0.8rem 1rem;
+    color: #4d5964;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    text-align: center;
+}
+
+.history-download-wrap {
+    text-align: center;
+}
+
+.virtual-program-card .program-logo-col img {
+    width: 100%;
+    max-width: 210px;
+    height: 280px;
+    border-radius: 6px;
+    object-fit: contain;
+    object-position: center top;
+}
+
+@media screen and (max-width: 800px) {
+    .history-hero {
+        padding: 3.5rem 1rem;
+    }
+
+    .history-document {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .history-gallery-two,
+    .history-gallery-four {
+        grid-template-columns: 1fr;
+    }
+
+    .history-figure img,
+    .history-gallery-four .history-figure img {
+        height: auto;
+        max-height: 500px;
+    }
 }
 
 /* ============================================

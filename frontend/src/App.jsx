@@ -10,6 +10,7 @@ import Contact from './pages/Contact.jsx'
 import Events from './pages/Events.jsx'
 import Members from './pages/Members.jsx'
 import AffiliatedDojos from './pages/AffiliatedDojos.jsx'
+import History from './pages/History.jsx'
 
 function ScrollToHash() {
   const { hash, pathname } = useLocation()
@@ -38,6 +39,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/history" element={<History />} />
           <Route path="/programs" element={<Programs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/events" element={<Events />} />

@@ -37,7 +37,7 @@ function ProgramAccordion({ id, title, isOpen, onToggle, children }) {
   )
 }
 
-const programIds = ['karatedo', 'kobudo', 'taijutsu', 'iaido', 'ninpo']
+const programIds = ['karatedo', 'kobudo', 'taijutsu', 'iaido', 'ninpo', 'virtual-classes']
 
 export default function Programs() {
   const location = useLocation()
@@ -60,7 +60,7 @@ export default function Programs() {
     <section className="programs-page">
       <div className="container">
         <h1 className="section-title">OUR MARTIAL ART PROGRAMS</h1>
-        <p className="section-subtitle">Five traditional Japanese martial arts, preserved and taught by Budō Sosa-Kai</p>
+        <p className="section-subtitle">Five traditional Japanese martial arts, plus virtual training with Hanshi Hugo</p>
 
         {/* KARATEDŌ SHITŌ-RYŪ */}
         <ProgramAccordion id="karatedo" title="KarateDō Shitō-Ryū Sosa-Kai" isOpen={openProgram === 'karatedo'} onToggle={toggleProgram}>
@@ -147,6 +147,20 @@ export default function Programs() {
             <p>Ninjūtsu is one of Japan's oldest martial traditions, tracing back to the Asuka and Heian periods, reaching its greatest development during the Kamakura and Sengoku periods, when the need for intelligence gathering, reconnaissance, and special operations gave rise to the warriors known as Ninja or Shinobi. Beyond their popular image, authentic Ninjūtsu emphasizes intelligence, discipline, patience, and the ability to resolve conflict through strategy before resorting to force.</p>
           </div>
         </div>
+        </ProgramAccordion>
+
+        <ProgramAccordion id="virtual-classes" title="Virtual Martial Arts Classes with Hanshi Hugo" isOpen={openProgram === 'virtual-classes'} onToggle={toggleProgram}>
+          <div className="program-full-card virtual-program-card">
+            <div className="program-logo-col">
+              <img src="/images/technical-staff/p1-7-Image22.jpg" alt="Hanshi Hugo Sosa" />
+            </div>
+            <div>
+              <h2>Virtual Martial Arts Classes with Hanshi Hugo</h2>
+              <p>Train remotely with Hanshi Hugo Sosa through guided virtual Martial Arts classes grounded in the traditional teachings and values of World Budō Sosa-Kai.</p>
+              <p>Contact World Budō Sosa-Kai for current class availability, scheduling, and enrollment information.</p>
+              <Link to="/contact" className="btn btn-primary">Ask About Virtual Classes</Link>
+            </div>
+          </div>
         </ProgramAccordion>
 
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>

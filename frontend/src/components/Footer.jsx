@@ -35,6 +35,7 @@ export default function Footer() {
 
       <div className="footer-bottom">
         <p>&copy; {new Date().getFullYear()} World Budō Sosa-Kai. All rights reserved.</p>
+        <p className="site-credit">Website created by <a href="https://www.linkedin.com/in/navyamalik05/" target="_blank" rel="noreferrer">Navya Malik</a></p>
       </div>
     </footer>
   )

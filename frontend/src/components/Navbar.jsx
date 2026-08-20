@@ -22,6 +22,7 @@ export default function Navbar() {
               <span className="dropdown-arrow"></span>
             </Link>
             <ul className="dropdown-menu">
+              <li><Link to="/history" onClick={closeMenu}>History</Link></li>
               <li><Link to="/about#philosophy-principles" onClick={closeMenu}>Philosophy &amp; Principles</Link></li>
               <li><Link to="/about#technical-staff" onClick={closeMenu}>Technical Staff</Link></li>
             </ul>
@@ -35,9 +36,10 @@ export default function Navbar() {
             <ul className="dropdown-menu">
               <li><Link to="/programs#karatedo" onClick={closeMenu}>KarateDō</Link></li>
               <li><Link to="/programs#kobudo" onClick={closeMenu}>Ryū Kyū Kobudō</Link></li>
-              <li><Link to="/programs#taijutsu" onClick={closeMenu}>Taijutsu</Link></li>
               <li><Link to="/programs#iaido" onClick={closeMenu}>Iaidō</Link></li>
+              <li><Link to="/programs#taijutsu" onClick={closeMenu}>Taijutsu</Link></li>
               <li><Link to="/programs#ninpo" onClick={closeMenu}>Ninpō</Link></li>
+              <li><Link to="/programs#virtual-classes" onClick={closeMenu}>Virtual Martial Arts Classes with Hanshi Hugo</Link></li>
             </ul>
           </li>
 
@@ -47,7 +49,11 @@ export default function Navbar() {
               <span className="dropdown-arrow"></span>
             </Link>
             <ul className="dropdown-menu">
-              <li><Link to="/affiliated-dojos#black-belt-chart" onClick={closeMenu}>Black Belt Chart</Link></li>
+              <li><Link to="/affiliated-dojos#karatedo-black-belt-chart" onClick={closeMenu}>KarateDō Black Belt Chart</Link></li>
+              <li><Link to="/affiliated-dojos#kobudo-chart" onClick={closeMenu}>RyūKyū Kobudō Chart</Link></li>
+              <li><Link to="/affiliated-dojos#iaido-chart" onClick={closeMenu}>Iaidō Chart</Link></li>
+              <li><Link to="/affiliated-dojos#ninpo-chart" onClick={closeMenu}>Ninpō Chart</Link></li>
+              <li><Link to="/affiliated-dojos#taijutsu-chart" onClick={closeMenu}>Tai-Jutsu Chart</Link></li>
               <li><Link to="/affiliated-dojos#dojos-chart" onClick={closeMenu}>Dōjōs Chart</Link></li>
               <li><Link to="/events" onClick={closeMenu}>News &amp; Events</Link></li>
             </ul>
@@ -64,7 +70,6 @@ export default function Navbar() {
             </Link>
             <ul className="dropdown-menu">
               <li><Link to="/members#training-program" onClick={closeMenu}>Training Program</Link></li>
-              <li><Link to="/members#chart" onClick={closeMenu}>Chart</Link></li>
             </ul>
           </li>
 
