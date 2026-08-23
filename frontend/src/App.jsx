@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Header from './components/Header.jsx'
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
+import ContactModal from './components/ContactModal.jsx'
 import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
 import TechnicalStaff from './pages/TechnicalStaff.jsx'
@@ -50,6 +51,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <ContactModal />
     </BrowserRouter>
   )
 }

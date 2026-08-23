@@ -1,3 +1,62 @@
+const charts = [
+  {
+    id: 'kobudo-chart',
+    title: 'RyūKyū Kobudō Chart',
+    description: 'Official Ryū Kyū Kobudō lineage and international organization chart.',
+    slug: 'ryukyu-kobudo',
+    pdf: 'ryukyu-kobudo-chart.pdf',
+    pages: 4,
+  },
+  {
+    id: 'iaido-chart',
+    title: 'Iaidō Tora-Ryū Chart',
+    description: 'Official Iaidō Tora-Ryū lineage and international organization chart.',
+    slug: 'iaido',
+    pdf: 'iaido-tora-ryu-chart.pdf',
+    pages: 4,
+  },
+  {
+    id: 'ninpo-chart',
+    title: 'Ninpō Chart',
+    description: 'Official Yukirenshi Ninpō-Kai lineage and international organization chart.',
+    slug: 'ninpo',
+    pdf: 'ninpo-chart.pdf',
+    pages: 2,
+  },
+  {
+    id: 'taijutsu-chart',
+    title: 'Tai-Jutsu Chart',
+    description: 'Official Tai-Jutsu Gōdai-Ryū lineage and international organization chart.',
+    slug: 'taijutsu',
+    pdf: 'taijutsu-chart.pdf',
+    pages: 3,
+  },
+]
+
+function ChartSection({ chart }) {
+  return (
+    <section className="resource-panel chart-resource-panel anchor-section" id={chart.id}>
+      <h2>{chart.title}</h2>
+      <p>{chart.description}</p>
+      <a className="document-download" href={`/documents/charts/${chart.pdf}`} target="_blank" rel="noreferrer">
+        View or download the original chart PDF
+      </a>
+      <div className="chart-page-list affiliated-chart-pages">
+        {Array.from({ length: chart.pages }, (_, index) => index + 1).map((page) => (
+          <figure className="chart-page" key={page}>
+            <img
+              src={`/images/affiliated-charts/${chart.slug}/page-${page}.jpg`}
+              alt={`${chart.title}, page ${page} of ${chart.pages}`}
+              loading={page === 1 ? 'eager' : 'lazy'}
+            />
+            <figcaption>{chart.title} · Page {page} of {chart.pages}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 export default function AffiliatedDojos() {
   return (
     <section className="affiliated-dojos-page">
@@ -11,10 +70,7 @@ export default function AffiliatedDojos() {
           <a className="link-button" href="/members#chart">View the KarateDō Black Belt Chart →</a>
         </section>
 
-        <section className="resource-panel anchor-section" id="kobudo-chart"><h2>RyūKyū Kobudō Chart</h2><p>The official RyūKyū Kobudō chart will be published here.</p></section>
-        <section className="resource-panel anchor-section" id="iaido-chart"><h2>Iaidō Chart</h2><p>The official Iaidō chart will be published here.</p></section>
-        <section className="resource-panel anchor-section" id="ninpo-chart"><h2>Ninpō Chart</h2><p>The official Ninpō chart will be published here.</p></section>
-        <section className="resource-panel anchor-section" id="taijutsu-chart"><h2>Tai-Jutsu Chart</h2><p>The official Tai-Jutsu chart will be published here.</p></section>
+        {charts.map((chart) => <ChartSection chart={chart} key={chart.id} />)}
 
         <section className="resource-panel anchor-section" id="dojos-chart">
           <h2>Dōjōs Chart</h2>

@@ -2,6 +2,10 @@ from flask import Flask, render_template, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import datetime
+from email.message import EmailMessage
+import re
+import smtplib
+import ssl
 import os
 
 # Initialize Flask without its automatic static route. The catch-all route
@@ -136,16 +140,56 @@ def get_events():
 
 @app.route('/api/contact', methods=['POST'])
 def create_contact():
-    data = request.get_json()
+    data = request.get_json(silent=True) or {}
 
     if not all([data.get('name'), data.get('email'), data.get('message')]):
         return jsonify({'error': 'Missing required fields'}), 400
 
+    name = re.sub(r'[\r\n]+', ' ', data['name'].strip())
+    sender_email = data['email'].strip()
+    phone = (data.get('phone') or '').strip()
+    message_text = data['message'].strip()
+
+    if not re.fullmatch(r'[^\s@]+@[^\s@]+\.[^\s@]+', sender_email):
+        return jsonify({'error': 'Please enter a valid email address'}), 400
+
+    if len(name) > 100 or len(sender_email) > 120 or len(phone) > 30 or len(message_text) > 5000:
+        return jsonify({'error': 'One or more fields are too long'}), 400
+
+    smtp_username = os.environ.get('SMTP_USERNAME')
+    smtp_password = os.environ.get('SMTP_PASSWORD')
+    smtp_host = os.environ.get('SMTP_HOST', 'smtp.gmail.com')
+    smtp_port = int(os.environ.get('SMTP_PORT', '465'))
+    recipient = os.environ.get('CONTACT_RECIPIENT', 'hanshi18@gmail.com')
+
+    if not smtp_username or not smtp_password:
+        return jsonify({'error': 'Email delivery is not configured yet. Please email hanshi18@gmail.com directly.'}), 503
+
+    email_message = EmailMessage()
+    email_message['Subject'] = f'Website contact from {name}'
+    email_message['From'] = smtp_username
+    email_message['To'] = recipient
+    email_message['Reply-To'] = sender_email
+    email_message.set_content(
+        f'Name: {name}\n'
+        f'Email: {sender_email}\n'
+        f'Phone: {phone or "Not provided"}\n\n'
+        f'Message:\n{message_text}\n'
+    )
+
+    try:
+        with smtplib.SMTP_SSL(smtp_host, smtp_port, context=ssl.create_default_context()) as server:
+            server.login(smtp_username, smtp_password)
+            server.send_message(email_message)
+    except Exception:
+        app.logger.exception('Contact email delivery failed')
+        return jsonify({'error': 'We could not send your message. Please email hanshi18@gmail.com directly.'}), 502
+
     contact = Contact(
-        name=data['name'],
-        email=data['email'],
-        phone=data.get('phone'),
-        message=data['message']
+        name=name,
+        email=sender_email,
+        phone=phone,
+        message=message_text
     )
 
     try:
