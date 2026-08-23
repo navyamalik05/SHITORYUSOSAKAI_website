@@ -1,3 +1,5 @@
+import AboutSectionNav from '../components/AboutSectionNav.jsx'
+
 const philosophyImages = [
   'p1-2-Image17.jpg',
   'p1-3-Image18.jpg',
@@ -35,6 +37,8 @@ const staff = [
 export default function About() {
   return (
     <main className="about-page">
+      <AboutSectionNav />
+
       <section className="about-document anchor-section" id="philosophy-principles">
         <div className="container document-container">
           <img className="document-emblem" src="/images/philosophy/p1-1-Image16.jpg" alt="World Budō Sosa-Kai emblem" />

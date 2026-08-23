@@ -661,6 +661,50 @@ body {
     background: #f4f7fa;
 }
 
+.about-section-nav {
+    border-bottom: 1px solid #cbd8e5;
+    background: var(--white);
+}
+
+.about-section-tabs {
+    display: grid;
+    grid-template-columns: 0.75fr 2fr 1.25fr;
+    max-width: 1180px;
+    padding: 1.1rem 1.25rem;
+}
+
+.about-section-tab {
+    display: flex;
+    min-height: 64px;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1.25rem;
+    border-right: 1px solid #b8c6d4;
+    color: #18232e;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(0.82rem, 1.25vw, 1rem);
+    font-weight: 700;
+    line-height: 1.35;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.about-section-tab:last-child {
+    border-right: 0;
+}
+
+.about-section-tab:hover,
+.about-section-tab:focus-visible {
+    background: var(--light-blue);
+    color: var(--primary-blue);
+}
+
+.about-section-tab.active {
+    background: var(--primary-blue);
+    color: var(--white);
+}
+
 .about-document,
 .technical-staff-section {
     padding: 4.5rem 2rem;
@@ -853,6 +897,24 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+    .about-section-tabs {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        padding: 0.75rem;
+    }
+
+    .about-section-tab {
+        min-height: 48px;
+        border: 1px solid #b8c6d4;
+        border-radius: 4px;
+        padding: 0.65rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .about-section-tab:last-child {
+        border-right: 1px solid #b8c6d4;
+    }
+
     .about-document,
     .technical-staff-section,
     .members-page {

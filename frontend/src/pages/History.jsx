@@ -1,3 +1,5 @@
+import AboutSectionNav from '../components/AboutSectionNav.jsx'
+
 const HistoryImage = ({ src, alt, caption, className = '' }) => (
   <figure className={`history-figure ${className}`.trim()}>
     <img src={`/images/history/${src}`} alt={alt} loading="lazy" />
@@ -8,6 +10,8 @@ const HistoryImage = ({ src, alt, caption, className = '' }) => (
 export default function History() {
   return (
     <main className="history-page">
+      <AboutSectionNav />
+
       <section className="history-hero">
         <div className="container history-container">
           <p className="history-kicker">WORLD UNION BUDŌ SOSA-KAI</p>
