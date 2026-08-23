@@ -24,7 +24,7 @@ export default function Navbar() {
             <ul className="dropdown-menu">
               <li><Link to="/history" onClick={closeMenu}>History</Link></li>
               <li><Link to="/about#philosophy-principles" onClick={closeMenu}>Philosophy &amp; Principles</Link></li>
-              <li><Link to="/about#technical-staff" onClick={closeMenu}>Technical Staff</Link></li>
+              <li><Link to="/about/technical-staff" onClick={closeMenu}>Technical Staff</Link></li>
             </ul>
           </li>
 

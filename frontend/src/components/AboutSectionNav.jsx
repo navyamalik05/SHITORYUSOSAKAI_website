@@ -9,17 +9,17 @@ const aboutSections = [
   },
   {
     label: 'SOSA-KAI TECHNICAL STAFF',
-    to: '/about#technical-staff',
+    to: '/about/technical-staff',
     section: 'staff',
   },
 ]
 
 export default function AboutSectionNav() {
-  const { pathname, hash } = useLocation()
+  const { pathname } = useLocation()
 
   const activeSection = pathname === '/history'
     ? 'history'
-    : hash === '#technical-staff'
+    : pathname === '/about/technical-staff'
       ? 'staff'
       : 'philosophy'
 

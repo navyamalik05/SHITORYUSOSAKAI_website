@@ -5,6 +5,7 @@ import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
 import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
+import TechnicalStaff from './pages/TechnicalStaff.jsx'
 import Programs from './pages/Programs.jsx'
 import Contact from './pages/Contact.jsx'
 import Events from './pages/Events.jsx'
@@ -39,6 +40,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/about/technical-staff" element={<TechnicalStaff />} />
           <Route path="/history" element={<History />} />
           <Route path="/programs" element={<Programs />} />
           <Route path="/contact" element={<Contact />} />
