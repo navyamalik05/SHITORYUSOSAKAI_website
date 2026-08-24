@@ -962,22 +962,230 @@ body {
     margin-top: 2rem;
 }
 
-.chart-resource-panel {
-    max-width: 1040px;
-    margin-bottom: 2rem;
+.affiliated-dojos-page {
+    background: #f5f7f9;
 }
 
-.chart-resource-panel > h2 {
+.affiliated-page-intro {
+    max-width: 1100px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+}
+
+.chart-section-label {
+    margin-bottom: 0.55rem;
+    color: #159957;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+}
+
+.affiliated-tabs-layout {
+    display: grid;
+    grid-template-columns: minmax(205px, 250px) minmax(0, 1fr);
+    max-width: 1180px;
+    min-height: 520px;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 1px solid #e0e5e9;
+    border-radius: 10px;
+    background: var(--white);
+    box-shadow: 0 12px 34px rgba(18, 43, 67, 0.09);
+}
+
+.chart-side-navigation {
+    padding: 2.25rem 0 2.25rem 2rem;
+    border-right: 1px solid #e0e5e9;
+    background: #fff;
+}
+
+.chart-side-navigation h2 {
+    margin: 0;
+    color: #172331;
+    font-size: 1.65rem;
+}
+
+.side-nav-accent {
+    display: block;
+    width: 28px;
+    height: 4px;
+    margin: 0.75rem 0 1.4rem;
+    border-radius: 999px;
+    background: #18b566;
+}
+
+.chart-side-navigation nav {
+    display: grid;
+}
+
+.chart-side-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    min-height: 50px;
+    margin-left: -0.8rem;
+    padding: 0.8rem 1rem;
+    border-left: 3px solid transparent;
+    color: #263646;
+    font-size: 0.93rem;
+    font-weight: 700;
+    line-height: 1.25;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.chart-side-link:hover,
+.chart-side-link.active {
+    border-left-color: #18b566;
+    background: #f1f8f4;
+    color: #0f7542;
+}
+
+.chart-side-link span {
+    font-size: 1.35rem;
+}
+
+.affiliated-tab-panel {
+    min-width: 0;
+    padding: 2.5rem;
+    outline: none;
+    background: #f7f8f9;
+}
+
+.chart-content-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #dfe5e8;
+}
+
+.chart-content-heading h2,
+.affiliated-empty-state h2 {
+    margin-bottom: 0.55rem;
     color: var(--primary-blue);
+    font-size: clamp(1.6rem, 3vw, 2.15rem);
+}
+
+.chart-content-heading p:not(.chart-section-label),
+.affiliated-empty-state > p:not(.chart-section-label) {
+    max-width: 650px;
+    color: var(--text-light);
+    line-height: 1.7;
+}
+
+.chart-pdf-link {
+    flex: 0 0 auto;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--primary-blue);
+    border-radius: 5px;
+    color: var(--primary-blue);
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.chart-pdf-link:hover {
+    background: var(--primary-blue);
+    color: var(--white);
 }
 
 .affiliated-chart-pages {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 1.75rem;
 }
 
-@media screen and (max-width: 768px) {
-    .affiliated-chart-pages {
+.website-chart-sheet {
+    overflow: hidden;
+    border: 1px solid #dce3e7;
+    border-radius: 7px;
+    background: var(--white);
+    box-shadow: 0 5px 18px rgba(18, 43, 67, 0.08);
+}
+
+.chart-sheet-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid #e4e9ec;
+    color: #50606f;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.website-chart-sheet img {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: clamp(0.4rem, 1.5vw, 1rem);
+    background: #fff;
+}
+
+.affiliated-empty-state {
+    display: flex;
+    min-height: 400px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.affiliated-empty-state .link-button {
+    margin-top: 1.25rem;
+}
+
+@media screen and (max-width: 820px) {
+    .affiliated-tabs-layout {
         grid-template-columns: 1fr;
+    }
+
+    .chart-side-navigation {
+        padding: 1.4rem;
+        border-right: 0;
+        border-bottom: 1px solid #e0e5e9;
+    }
+
+    .chart-side-navigation nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.35rem;
+    }
+
+    .chart-side-link {
+        margin-left: 0;
+        border: 1px solid #dfe5e8;
+        border-left-width: 3px;
+        border-radius: 4px;
+    }
+
+    .affiliated-tab-panel {
+        padding: 1.5rem;
+    }
+
+    .chart-content-heading {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .affiliated-dojos-page {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+
+    .chart-side-navigation nav {
+        grid-template-columns: 1fr;
+    }
+
+    .affiliated-tab-panel {
+        padding: 1rem;
     }
 }
 
