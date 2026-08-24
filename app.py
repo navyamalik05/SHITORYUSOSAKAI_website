@@ -1,12 +1,18 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify, send_file, send_from_directory, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from sqlalchemy import inspect, text
 from datetime import datetime
 from email.message import EmailMessage
+from functools import wraps
+from io import BytesIO
 import re
+import secrets
 import smtplib
 import ssl
 import os
+from urllib.parse import urlparse
+from werkzeug.utils import secure_filename
 
 # Initialize Flask without its automatic static route. The catch-all route
 # below serves real files from the React build and falls back to index.html
@@ -16,9 +22,33 @@ app = Flask(__name__)
 CORS(app)
 
 # Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+database_url = os.environ.get('DATABASE_URL', 'sqlite:///database.db')
+if database_url.startswith('postgres://'):
+    database_url = database_url.replace('postgres://', 'postgresql://', 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'your-secret-key-change-this'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or os.urandom(32)
+app.config['MAX_CONTENT_LENGTH'] = 80 * 1024 * 1024
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+app.config['SESSION_COOKIE_SECURE'] = bool(os.environ.get('RENDER'))
+
+ALLOWED_ADMIN_EMAILS = {
+    'malikna1@msu.edu',
+    'donadoto@msu.edu',
+    'hanshi18@gmail.com',
+}
+
+ALLOWED_MEDIA_TYPES = {
+    'image/jpeg': 'image',
+    'image/png': 'image',
+    'image/webp': 'image',
+    'image/gif': 'image',
+    'application/pdf': 'pdf',
+    'video/mp4': 'video',
+    'video/webm': 'video',
+    'video/quicktime': 'video',
+}
 
 # Initialize database
 db = SQLAlchemy(app)
@@ -97,26 +127,148 @@ class Student(db.Model):
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
+    subtitle = db.Column(db.String(300))
     description = db.Column(db.Text)
     date = db.Column(db.DateTime, nullable=False)
     location = db.Column(db.String(200))
     image = db.Column(db.String(200))
+    youtube_url = db.Column(db.String(500))
+    external_url = db.Column(db.String(500))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    media = db.relationship('EventMedia', backref='event', cascade='all, delete-orphan', lazy=True)
 
     def to_dict(self):
         return {
             'id': self.id,
             'title': self.title,
+            'subtitle': self.subtitle,
             'description': self.description,
             'date': self.date.strftime('%Y-%m-%d %H:%M:%S'),
             'location': self.location,
-            'image': self.image
+            'image': self.image,
+            'youtube_url': self.youtube_url,
+            'external_url': self.external_url,
+            'media': [item.to_dict() for item in self.media]
+        }
+
+
+class EventMedia(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False, index=True)
+    filename = db.Column(db.String(255), nullable=False)
+    mime_type = db.Column(db.String(100), nullable=False)
+    media_type = db.Column(db.String(20), nullable=False)
+    data = db.Column(db.LargeBinary, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'filename': self.filename,
+            'mime_type': self.mime_type,
+            'media_type': self.media_type,
+            'url': f'/api/event-media/{self.id}'
         }
 
 
 # ============================================
 # API ENDPOINTS (used by the React frontend)
 # ============================================
+
+def admin_required(view):
+    @wraps(view)
+    def wrapped(*args, **kwargs):
+        if session.get('admin_email') not in ALLOWED_ADMIN_EMAILS:
+            return jsonify({'error': 'Administrator login required'}), 401
+        return view(*args, **kwargs)
+    return wrapped
+
+
+def clean_text(value, limit):
+    return str(value or '').strip()[:limit]
+
+
+def clean_url(value):
+    url = clean_text(value, 500)
+    if not url:
+        return ''
+    parsed = urlparse(url)
+    if parsed.scheme not in {'http', 'https'} or not parsed.netloc:
+        raise ValueError('Links must begin with http:// or https://')
+    return url
+
+
+def update_event_from_form(event):
+    title = clean_text(request.form.get('title'), 200)
+    event_date = clean_text(request.form.get('date'), 40)
+    if not title or not event_date:
+        raise ValueError('Title and event date are required')
+
+    try:
+        parsed_date = datetime.fromisoformat(event_date.replace('Z', '+00:00'))
+        if parsed_date.tzinfo:
+            parsed_date = parsed_date.replace(tzinfo=None)
+    except ValueError as error:
+        raise ValueError('Please enter a valid event date and time') from error
+
+    event.title = title
+    event.subtitle = clean_text(request.form.get('subtitle'), 300)
+    event.description = clean_text(request.form.get('description'), 10000)
+    event.date = parsed_date
+    event.location = clean_text(request.form.get('location'), 200)
+    event.youtube_url = clean_url(request.form.get('youtube_url'))
+    event.external_url = clean_url(request.form.get('external_url'))
+
+
+def attach_event_media(event):
+    for uploaded_file in request.files.getlist('media'):
+        if not uploaded_file or not uploaded_file.filename:
+            continue
+        mime_type = uploaded_file.mimetype or ''
+        media_type = ALLOWED_MEDIA_TYPES.get(mime_type)
+        if not media_type:
+            raise ValueError(f'Unsupported file type: {uploaded_file.filename}')
+
+        file_data = uploaded_file.read()
+        max_size = 50 * 1024 * 1024 if media_type == 'video' else 15 * 1024 * 1024
+        if len(file_data) > max_size:
+            raise ValueError(f'{uploaded_file.filename} is too large')
+
+        event.media.append(EventMedia(
+            filename=secure_filename(uploaded_file.filename) or f'{media_type}-upload',
+            mime_type=mime_type,
+            media_type=media_type,
+            data=file_data,
+        ))
+
+
+@app.route('/api/admin/session', methods=['GET'])
+def admin_session_status():
+    email = session.get('admin_email')
+    return jsonify({'authenticated': email in ALLOWED_ADMIN_EMAILS, 'email': email if email in ALLOWED_ADMIN_EMAILS else None})
+
+
+@app.route('/api/admin/login', methods=['POST'])
+def admin_login():
+    data = request.get_json(silent=True) or {}
+    email = clean_text(data.get('email'), 120).lower()
+    password = str(data.get('password') or '')
+    configured_password = os.environ.get('ADMIN_SHARED_PASSWORD')
+
+    if not configured_password:
+        return jsonify({'error': 'Admin login is not configured yet'}), 503
+    if email not in ALLOWED_ADMIN_EMAILS or not secrets.compare_digest(password, configured_password):
+        return jsonify({'error': 'Invalid email or password'}), 401
+
+    session.clear()
+    session['admin_email'] = email
+    return jsonify({'authenticated': True, 'email': email})
+
+
+@app.route('/api/admin/logout', methods=['POST'])
+def admin_logout():
+    session.clear()
+    return jsonify({'authenticated': False})
 
 @app.route('/api/programs', methods=['GET'])
 def get_programs():
@@ -136,6 +288,76 @@ def get_program(id):
 def get_events():
     events = Event.query.order_by(Event.date).all()
     return jsonify([e.to_dict() for e in events])
+
+
+@app.route('/api/event-media/<int:media_id>', methods=['GET'])
+def get_event_media(media_id):
+    media = db.session.get(EventMedia, media_id)
+    if not media:
+        return jsonify({'error': 'Media not found'}), 404
+    return send_file(
+        BytesIO(media.data),
+        mimetype=media.mime_type,
+        download_name=media.filename,
+        as_attachment=request.args.get('download') == '1',
+        max_age=86400,
+    )
+
+
+@app.route('/api/admin/events', methods=['POST'])
+@admin_required
+def create_event():
+    event = Event(title='', date=datetime.utcnow())
+    try:
+        update_event_from_form(event)
+        attach_event_media(event)
+        db.session.add(event)
+        db.session.commit()
+        return jsonify(event.to_dict()), 201
+    except ValueError as error:
+        db.session.rollback()
+        return jsonify({'error': str(error)}), 400
+    except Exception:
+        db.session.rollback()
+        app.logger.exception('Event creation failed')
+        return jsonify({'error': 'The event could not be saved'}), 500
+
+
+@app.route('/api/admin/events/<int:event_id>', methods=['PUT', 'DELETE'])
+@admin_required
+def manage_event(event_id):
+    event = db.session.get(Event, event_id)
+    if not event:
+        return jsonify({'error': 'Event not found'}), 404
+
+    if request.method == 'DELETE':
+        db.session.delete(event)
+        db.session.commit()
+        return jsonify({'deleted': True})
+
+    try:
+        update_event_from_form(event)
+        attach_event_media(event)
+        db.session.commit()
+        return jsonify(event.to_dict())
+    except ValueError as error:
+        db.session.rollback()
+        return jsonify({'error': str(error)}), 400
+    except Exception:
+        db.session.rollback()
+        app.logger.exception('Event update failed')
+        return jsonify({'error': 'The event could not be updated'}), 500
+
+
+@app.route('/api/admin/event-media/<int:media_id>', methods=['DELETE'])
+@admin_required
+def delete_event_media(media_id):
+    media = db.session.get(EventMedia, media_id)
+    if not media:
+        return jsonify({'error': 'Media not found'}), 404
+    db.session.delete(media)
+    db.session.commit()
+    return jsonify({'deleted': True})
 
 
 @app.route('/api/contact', methods=['POST'])
@@ -274,6 +496,17 @@ def serve_react(path):
 def init_db():
     with app.app_context():
         db.create_all()
+
+        existing_event_columns = {column['name'] for column in inspect(db.engine).get_columns('event')}
+        event_column_migrations = {
+            'subtitle': 'VARCHAR(300)',
+            'youtube_url': 'VARCHAR(500)',
+            'external_url': 'VARCHAR(500)',
+        }
+        with db.engine.begin() as connection:
+            for column_name, column_type in event_column_migrations.items():
+                if column_name not in existing_event_columns:
+                    connection.execute(text(f'ALTER TABLE "event" ADD COLUMN {column_name} {column_type}'))
 
         if Program.query.first():
             return

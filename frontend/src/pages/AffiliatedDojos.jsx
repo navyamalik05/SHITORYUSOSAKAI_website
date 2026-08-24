@@ -8,7 +8,7 @@ const charts = [
     description: 'Official Ryū Kyū Kobudō lineage and international organization chart.',
     slug: 'ryukyu-kobudo',
     pdf: 'ryukyu-kobudo-chart.pdf',
-    pages: 4,
+    pages: 3,
   },
   {
     id: 'iaido-chart',
@@ -17,7 +17,7 @@ const charts = [
     description: 'Official Iaidō Tora-Ryū lineage and international organization chart.',
     slug: 'iaido',
     pdf: 'iaido-tora-ryu-chart.pdf',
-    pages: 4,
+    pages: 3,
   },
   {
     id: 'ninpo-chart',
