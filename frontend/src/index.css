@@ -522,6 +522,87 @@ body {
     border-top: 1px solid #d8e2ec;
 }
 
+.program-legacy-section {
+    padding: 0 2rem 2rem;
+}
+
+.program-legacy-tabs {
+    border-bottom: 2px solid #d7e0e8;
+}
+
+.program-legacy-tab {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: min(100%, 430px);
+    padding: 0.95rem 1.15rem;
+    border: 1px solid #d7e0e8;
+    border-bottom: 0;
+    border-radius: 7px 7px 0 0;
+    background: #f4f7fa;
+    color: var(--primary-blue);
+    font: inherit;
+    font-weight: 800;
+    text-align: left;
+    cursor: pointer;
+}
+
+.program-legacy-tab:hover,
+.program-legacy-tab:focus-visible,
+.program-legacy-tab.active {
+    background: var(--primary-blue);
+    color: var(--white);
+}
+
+.program-legacy-tab:focus-visible {
+    outline: 3px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+.program-legacy-panel {
+    padding: clamp(1rem, 3vw, 2rem);
+    border: 1px solid #d7e0e8;
+    border-top: 0;
+    border-radius: 0 0 8px 8px;
+    background: #f8fafc;
+}
+
+.program-legacy-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.program-legacy-heading h3 {
+    margin: 0.25rem 0 0.55rem;
+    color: var(--primary-blue);
+    font-size: 1.5rem;
+}
+
+.program-legacy-heading p:last-child {
+    max-width: 720px;
+    margin: 0;
+    color: var(--text-light);
+}
+
+.program-legacy-heading a {
+    flex: 0 0 auto;
+    padding: 0.7rem 0.9rem;
+    border-radius: 5px;
+    background: var(--primary-blue);
+    color: var(--white);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.program-legacy-pages {
+    display: grid;
+    gap: 1.5rem;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -1590,9 +1671,21 @@ body {
 .benefit-instructor-row img {
     width: 33%;
     height: 220px;
-    object-fit: contain;
+    object-fit: cover;
+    object-position: center top;
     background: var(--light-blue);
     border-radius: 6px;
+}
+
+@media screen and (max-width: 680px) {
+    .program-legacy-section {
+        padding: 0 1rem 1rem;
+    }
+
+    .program-legacy-heading {
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
 
 .benefit-card h3 {

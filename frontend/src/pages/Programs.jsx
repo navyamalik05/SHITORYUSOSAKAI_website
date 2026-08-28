@@ -37,6 +37,56 @@ function ProgramAccordion({ id, title, isOpen, onToggle, children }) {
   )
 }
 
+function ProgramLegacy({ programId, title, slug, pdf, pages }) {
+  const [isOpen, setIsOpen] = useState(false)
+  const panelId = `${programId}-legacy-panel`
+
+  return (
+    <section className="program-legacy-section">
+      <div className="program-legacy-tabs" role="tablist" aria-label={`${title} legacy information`}>
+        <button
+          type="button"
+          className={`program-legacy-tab ${isOpen ? 'active' : ''}`}
+          role="tab"
+          aria-selected={isOpen}
+          aria-controls={panelId}
+          onClick={() => setIsOpen((current) => !current)}
+        >
+          Kenwa Mabuni Martial Art Legacy
+          <span aria-hidden="true">{isOpen ? '−' : '+'}</span>
+        </button>
+      </div>
+
+      <div className="program-legacy-panel" id={panelId} role="tabpanel" hidden={!isOpen}>
+        <div className="program-legacy-heading">
+          <div>
+            <p className="chart-section-label">MARTIAL ART LINEAGE</p>
+            <h3>{title}</h3>
+            <p>Explore the masters and traditions that shaped Kenwa Mabuni's martial arts knowledge and the legacy transmitted through World Budō Sosa-Kai.</p>
+          </div>
+          <a href={`/documents/legacies/${pdf}`} target="_blank" rel="noreferrer">Open original PDF ↗</a>
+        </div>
+
+        <div className="program-legacy-pages">
+          {Array.from({ length: pages }, (_, index) => index + 1).map((page) => (
+            <article className="website-chart-sheet" key={page}>
+              <div className="chart-sheet-header">
+                <span>{title}</span>
+                <span>Page {page} of {pages}</span>
+              </div>
+              <img
+                src={`/images/program-legacies/${slug}/page-${page}.jpg`}
+                alt={`${title}, page ${page} of ${pages}`}
+                loading="lazy"
+              />
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 const programIds = ['karatedo', 'kobudo', 'taijutsu', 'iaido', 'ninpo', 'virtual-classes']
 
 export default function Programs() {
@@ -79,6 +129,7 @@ export default function Programs() {
             <p><strong>Sosa-Kai:</strong> The primary objective of Sosa-Kai is to preserve the teachings of Sōke Kenwa Mabuni by promoting the correct transmission of Shitō-Ryū, including both its techniques and its traditional Kata. Our technical and philosophical foundation is based on the teachings received from Nidaime Sōke Kenei Mabuni, the founder's son, and Saikō Shihan Nobuyoshi Murata, both of whom devoted their lives to faithfully preserving the legacy of Shitō-Ryū.</p>
           </div>
         </div>
+        <ProgramLegacy programId="karatedo" title="The Legacy of Shitō-Ryū" slug="karatedo" pdf="karatedo-shito-ryu-legacy.pdf" pages={3} />
         </ProgramAccordion>
 
         {/* RYŪKYŪ KOBUDŌ */}
@@ -96,6 +147,7 @@ export default function Programs() {
             <p>Among the greatest achievements of Sosa-Kai was the Ryūkyū Kobudō demonstration performed by Daishi Jorge Sosa Sr. and Hanshi Jorge Sosa Jr. at the Coca-Cola Stadium in Pretoria, South Africa in 1973, before an audience of approximately 20,000 spectators.</p>
           </div>
         </div>
+        <ProgramLegacy programId="kobudo" title="International Genbu Ryū Kyū Kobudō Legacy" slug="kobudo" pdf="ryukyu-kobudo-legacy.pdf" pages={1} />
         </ProgramAccordion>
 
         {/* TAI-JŪTSU GODAI-RYŪ */}
@@ -113,6 +165,7 @@ export default function Programs() {
             <p>Tai-Jūtsu Godai-Ryū is described by Daishi Jorge Sosa Sr. as <em>"the grandson of Jūjutsu,"</em> as it represents the integration of the principles of Jūjutsu, Jūdō, and KarateDō, combining their teachings to create a more practical and adaptable system for real-life defense situations.</p>
           </div>
         </div>
+        <ProgramLegacy programId="taijutsu" title="International Tai-Jūtsu Godai-Ryū Legacy" slug="taijutsu" pdf="taijutsu-godai-ryu-legacy.pdf" pages={1} />
         </ProgramAccordion>
 
         {/* IAIDŌ TORA-RYŪ */}
@@ -130,6 +183,7 @@ export default function Programs() {
             <p className="maxim">"The art of perfecting the individual through the correct practice of Japanese swordsmanship, seeking to achieve harmony, discipline, and inner enlightenment."</p>
           </div>
         </div>
+        <ProgramLegacy programId="iaido" title="International Iaidō Tora-Ryū Legacy" slug="iaido" pdf="iaido-tora-ryu-legacy.pdf" pages={1} />
         </ProgramAccordion>
 
         {/* NINPŌ / NINJŪTSU */}
@@ -147,6 +201,7 @@ export default function Programs() {
             <p>Ninjūtsu is one of Japan's oldest martial traditions, tracing back to the Asuka and Heian periods, reaching its greatest development during the Kamakura and Sengoku periods, when the need for intelligence gathering, reconnaissance, and special operations gave rise to the warriors known as Ninja or Shinobi. Beyond their popular image, authentic Ninjūtsu emphasizes intelligence, discipline, patience, and the ability to resolve conflict through strategy before resorting to force.</p>
           </div>
         </div>
+        <ProgramLegacy programId="ninpo" title="International Yukibushi Ninpō-Kai Legacy" slug="ninpo" pdf="yukibushi-ninpo-kai-legacy.pdf" pages={1} />
         </ProgramAccordion>
 
         <ProgramAccordion id="virtual-classes" title="Virtual Martial Arts Classes with Hanshi Hugo" isOpen={openProgram === 'virtual-classes'} onToggle={toggleProgram}>

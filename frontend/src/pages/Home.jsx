@@ -159,9 +159,9 @@ export default function Home() {
             </div>
 
             <div className="benefit-card">
-              <img className="benefit-image" src="/images/why-foundations.jpg" alt="Building Strong Foundations" />
-              <h3>Building Strong Foundations</h3>
-              <p>We help students develop confidence, resilience, discipline, and effective self-defense skills for life.</p>
+              <img className="benefit-image" src="/images/why-heritage.jpg" alt="Heritage and Tradition" />
+              <h3>Heritage and Tradition</h3>
+              <p>Experience authentic Budō training based on traditional methods that honor the legacy of Japanese martial arts.</p>
             </div>
 
             <div className="benefit-card">
@@ -177,9 +177,9 @@ export default function Home() {
             </div>
 
             <div className="benefit-card">
-              <img className="benefit-image" src="/images/why-heritage.jpg" alt="Heritage and Tradition" />
-              <h3>Heritage and Tradition</h3>
-              <p>Experience authentic Budō training based on traditional methods that honor the legacy of Japanese martial arts.</p>
+              <img className="benefit-image" src="/images/why-foundations.jpg" alt="Building Strong Foundations" />
+              <h3>Building Strong Foundations</h3>
+              <p>We help students develop confidence, resilience, discipline, and effective self-defense skills for life.</p>
             </div>
 
             <div className="benefit-card">

@@ -28,21 +28,21 @@ export default function History() {
           <p>After six years of practicing Jujitsu, around 1949, he traveled to San Antonio, Texas, where he received training in Kodokan Judō. Upon returning to Guatemala, he established his first Dōjō in the Barrio Moderno neighborhood of Guatemala City. He later established his headquarters at 12 Avenida 3-01 and 3rd Street, Zone 1, where he founded the Dōjō Jigoro Kano. Several months later, he participated in the founding of the first Judō Federation in Guatemala.</p>
           <p>His dedication, discipline, and perseverance led him to attain the rank of Black Belt on December 22, 1962, after being examined by Sensei Eli Cabeiro, a 4th Dan in Kodokan Judō of Cuban origin. He also trained under distinguished instructors including Sensei Peter Zpats of Germany, and Yasuo Nakayama and Hironori Seki of Japan.</p>
           <div className="history-gallery history-gallery-two">
-            <HistoryImage src="01-canada-judo-article.jpg" alt="Historic Canadian Judo article and Jigoro Kano Dōjō photographs" caption="Historic records from the early Judō years." />
-            <HistoryImage src="02-judo-certificate.jpg" alt="Judō black belt certificate awarded to Jorge Sosa" caption="Judō certificate awarded to Jorge Sosa." />
+            <HistoryImage src="01-canada-judo-article.jpg" alt="Historic Canadian Judo article and Jigoro Kano Dōjō photographs" caption="Historic records from the early Judō years, April 1961." />
+            <HistoryImage src="02-judo-certificate.jpg" alt="Judō black belt certificate awarded to Jorge Sosa" caption="Judō certificate awarded to Jorge Sosa, Black Belt, 1st Dan." />
           </div>
         </section>
 
         <section className="history-section" id="shito-ryu">
           <h2>The Encounter with Shitō-Ryū KarateDō</h2>
           <p>In 1961, through the introduction of Master Yasuo Nakayama of Judō, our Master was introduced to Master Nobuyoshi Murata, a distinguished exponent of Shitō-Ryū KarateDō and leader of the Mexican KarateDō Association. This encounter marked the beginning of a new stage in his martial arts journey: his training in KarateDō.</p>
-          <HistoryImage src="03-mexican-karatedo-association.jpg" alt="Members of the Mexican KarateDō Association in 1962" caption="The Mexican KarateDō Association. Among those pictured are Alejandro Frías, Juan Jorge Farias, Sensei Héctor Aguirre, Manuel Mondragón, Carlos Vila, Saikō-Shihan Nobuyoshi Murata, Daishi Jorge Sosa Sr., Mrs. Ana María Sosa, and Yukiko Murata." className="history-figure-wide" />
+          <HistoryImage src="03-mexican-karatedo-association.jpg" alt="Members of the Mexican KarateDō Association in 1964" caption="The Mexican KarateDō Association. Among those pictured are Alejandro Frías, Juan Jorge Farias, Sensei Héctor Aguirre, Manuel Mondragón, Carlos Vila, Saikō-Shihan Nobuyoshi Murata, Daishi Jorge Sosa Sr., Mrs. Ana María Sosa, and Yukiko Murata. September 1964." className="history-figure-wide" />
           <p>From that moment forward, he embarked on a demanding process of learning, practice, and assimilation of the Shitō-Ryū style under the guidance of Saikō-Shihan Nobuyoshi Murata and, subsequently, Nidaime Kenei Mabuni, the eldest son of Shitō-Ryū founder Kenwa Mabuni.</p>
           <div className="history-gallery history-gallery-two">
             <HistoryImage src="04-mabuni-sosa-training.jpg" alt="Jorge Sosa Sr. training with Kenei Mabuni in Mexico in 1962" caption="Daishi Jorge Sosa Sr.'s early KarateDō training with Nidaime Kenei Mabuni, Mexico, 1962." />
-            <HistoryImage src="05-murata-mabuni-sosa.jpg" alt="Nobuyoshi Murata, Kenei Mabuni, and Jorge Sosa Sr." caption="Left to right: Saikō-Shihan Nobuyoshi Murata, Nidaime Kenei Mabuni, and Daishi Jorge Sosa Sr." />
+            <HistoryImage src="05-murata-mabuni-sosa.jpg" alt="Nobuyoshi Murata, Kenei Mabuni, and Jorge Sosa Sr." caption="Left to right: Saikō-Shihan Nobuyoshi Murata, Nidaime Kenei Mabuni, and Daishi Jorge Sosa Sr. December 27, 1965." />
           </div>
-          <HistoryImage src="06-japanese-masters.jpg" alt="Masatoshi Nakayama, Kenei Mabuni, Teruyuki Okazaki, Jorge Sosa Sr., and others" caption="First row, left to right: Hanshi Masatoshi Nakayama, Nidaime Kenei Mabuni, Hanshi Teruyuki Okazaki, and Daishi Jorge Sosa Sr." className="history-figure-wide" />
+          <HistoryImage src="06-japanese-masters.jpg" alt="Masatoshi Nakayama, Kenei Mabuni, Teruyuki Okazaki, Jorge Sosa Sr., and others" caption="First row, left to right: Hanshi Masatoshi Nakayama, Nidaime Kenei Mabuni, Hanshi Teruyuki Okazaki, and Daishi Jorge Sosa Sr. First Pan American Championship, Los Angeles, U.S.A., November 28, 1965." className="history-figure-wide" />
         </section>
 
         <section className="history-section" id="training-development">
@@ -51,8 +51,8 @@ export default function History() {
           <p>Our Master began his Path of Dō under the supervision, guidance, and direction of these two great masters, initially through KarateDō and subsequently through other traditional Japanese martial arts. During that period, a Sensei transmitted certain techniques and Kata only to students who demonstrated the aptitude, attitude, discipline, and commitment necessary to follow the true Path of Budō.</p>
           <p>Within this context, Nidaime Kenei Mabuni chose our Master to receive a broader and deeper education in KarateDō, Ryū-Kyū Kobudō, Iaidō, Ninpō, and Tai-Jutsu. Master Kenei Mabuni made several trips to Guatemala and, on three occasions, remained for an entire year, allowing our Master and his sons to receive a significant part of his teachings directly.</p>
           <div className="history-gallery history-gallery-two">
-            <HistoryImage src="07-kendo.jpg" alt="Kenei Mabuni and Jorge Sosa Sr. practicing Kendō" caption="Kendō: Nidaime Mabuni and Daishi Sosa Sr." />
-            <HistoryImage src="08-ryukyu-kobudo.jpg" alt="Ryū Kyū Kobudō Sai versus Bō demonstration" caption="Ryū Kyū Kobudō: Sai versus Bō." />
+            <HistoryImage src="07-kendo.jpg" alt="Kenei Mabuni and Jorge Sosa Sr. practicing Kendō" caption="Kendō: Nidaime Mabuni and Daishi Sosa Sr., Guatemala, 1966." />
+            <HistoryImage src="08-ryukyu-kobudo.jpg" alt="Nidaime Kenei Mabuni and Daishi Jorge Sosa Sr. demonstrating Ryū Kyū Kobudō" caption="Nidaime Kenei Mabuni & Daishi Jorge Sosa Sr., Guatemala, 1967." />
           </div>
         </section>
 
