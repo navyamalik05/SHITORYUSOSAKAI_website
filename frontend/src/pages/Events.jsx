@@ -286,6 +286,7 @@ export default function Events() {
               pdf: '/documents/news-events/news-events-2026-2027.pdf',
               basePath: '/images/news-events',
               pages: 8,
+              accordion: 'pages',
             },
           ]}
         />

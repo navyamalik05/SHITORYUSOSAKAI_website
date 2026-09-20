@@ -1057,6 +1057,66 @@ body {
     margin: 0 auto;
 }
 
+.document-accordion {
+    overflow: hidden;
+    border: 1px solid #d4e0e8;
+    border-radius: 7px;
+    background: #fff;
+    box-shadow: 0 5px 18px rgba(18, 43, 67, 0.07);
+}
+
+.document-accordion-trigger {
+    display: flex;
+    width: 100%;
+    min-height: 62px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    border: 0;
+    border-left: 5px solid #18b566;
+    background: #fff;
+    color: #173d63;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 900;
+    text-align: left;
+    cursor: pointer;
+}
+
+.document-accordion-trigger:hover,
+.document-accordion-trigger:focus-visible {
+    background: #f1f8f4;
+}
+
+.document-accordion-icon {
+    display: inline-grid;
+    width: 34px;
+    height: 34px;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--primary-blue);
+    color: #fff;
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.document-accordion-content {
+    padding: 1.2rem;
+    border-top: 1px solid #dbe4ea;
+    background: #f8fafb;
+}
+
+.document-page-accordion-list {
+    display: grid;
+    gap: 0.9rem;
+}
+
+.document-page-accordion .document-page-sheet {
+    margin: 0 auto;
+}
+
 .document-image-panel {
     max-width: min(760px, 100%);
     margin: 0 auto;

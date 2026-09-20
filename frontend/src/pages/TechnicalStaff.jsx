@@ -21,6 +21,7 @@ const staff = [
         pdf: '/documents/resumes/hanshi-hugo-sosa-resume-2026.pdf',
         basePath: '/images/resumes/hugo',
         pages: 3,
+        accordion: true,
       },
       {
         id: 'hugo-award',
@@ -53,6 +54,7 @@ const staff = [
         pdf: '/documents/resumes/hanshi-jorge-sosa-jr-resume-2026.pdf',
         basePath: '/images/resumes/jorge-jr',
         pages: 3,
+        accordion: true,
       },
       {
         id: 'jorge-jr-award',

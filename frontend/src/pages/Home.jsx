@@ -154,6 +154,7 @@ export default function Home() {
                 pdf: '/documents/resumes/daishi-jorge-sosa-sr-resume-2026.pdf',
                 basePath: '/images/resumes/daishi',
                 pages: 11,
+                accordion: true,
               },
             ]}
           />
