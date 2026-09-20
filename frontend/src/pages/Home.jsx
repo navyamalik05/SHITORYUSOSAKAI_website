@@ -1,3 +1,5 @@
+import DocumentTabs from '../components/DocumentTabs.jsx'
+
 function scrollToPrograms() {
   document.getElementById('programs-section')?.scrollIntoView({ behavior: 'smooth' })
 }
@@ -118,6 +120,7 @@ export default function Home() {
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
@@ -139,6 +142,21 @@ export default function Home() {
               <p>Today, his sons continue his legacy, sharing these centuries-old traditions with students around the world.</p>
             </div>
           </div>
+          <DocumentTabs
+            title="Daishi's Resume"
+            intro="Review the official Budō resume for Sōke - Daishi Jorge Sosa Sr."
+            items={[
+              {
+                id: 'daishi-resume',
+                label: 'Resume',
+                title: "Sōke - Daishi Jorge Sosa Sr. Resume",
+                description: 'Official resume and martial arts background of the founder of World Budō Sosa-Kai.',
+                pdf: '/documents/resumes/daishi-jorge-sosa-sr-resume-2026.pdf',
+                basePath: '/images/resumes/daishi',
+                pages: 11,
+              },
+            ]}
+          />
         </div>
       </section>
 

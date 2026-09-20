@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import DocumentTabs from '../components/DocumentTabs.jsx'
 
 const emptyEvent = {
   title: '',
@@ -272,6 +273,22 @@ export default function Events() {
           <p className="section-subtitle">Announcements, seminars, tournaments, promotions, and special events from our worldwide martial arts community.</p>
           {admin.authenticated && <div className="admin-session-bar"><span>Signed in as {admin.email}</span><button type="button" onClick={logout}>Log Out</button></div>}
         </header>
+
+        <DocumentTabs
+          title="News & Events Archive"
+          intro="Current World Budō Sosa-Kai news and events held to date."
+          items={[
+            {
+              id: 'news-events-2026-2027',
+              label: '2026-2027',
+              title: 'News & Events 2026-2027',
+              description: 'Official News & Events archive supplied for the Affiliated Dōjōs News & Events section.',
+              pdf: '/documents/news-events/news-events-2026-2027.pdf',
+              basePath: '/images/news-events',
+              pages: 8,
+            },
+          ]}
+        />
 
         {loading ? (
           <div className="events-empty-state"><p>Loading news and events…</p></div>

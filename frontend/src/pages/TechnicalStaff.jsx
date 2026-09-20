@@ -1,4 +1,5 @@
 import AboutSectionNav from '../components/AboutSectionNav.jsx'
+import DocumentTabs from '../components/DocumentTabs.jsx'
 
 const staff = [
   {
@@ -11,6 +12,26 @@ const staff = [
       'In addition to training in KarateDō, Ryū-Kyū Kobudō, Ninpō, Taijutsu, and Iaidō, Hanshi Hugo also studied Kendō and Judō, broadening his education in the traditional Japanese martial arts. In 1975, while still a teenager, he received instruction from Daishi Nobuyoshi Murata in Mexico. During those years, he frequently accompanied his father on numerous teaching and training trips, participating in KarateDō and other martial arts demonstrations.',
       'Throughout his youth, Hanshi Hugo had the privilege of training under several distinguished Japanese masters, including Nidaime Kenei Mabuni, Daishi Nobuyoshi Murata, Hanshi Shoko Sato, and Hanshi Fumio Demura, all of whom made significant contributions to his technical and philosophical development in Budō.',
     ],
+    documents: [
+      {
+        id: 'hugo-resume',
+        label: 'Resume',
+        title: 'Hanshi Hugo Yasuo Sosa Resume',
+        description: 'Official Budō resume and martial arts background for Hanshi Hugo Yasuo Sosa.',
+        pdf: '/documents/resumes/hanshi-hugo-sosa-resume-2026.pdf',
+        basePath: '/images/resumes/hugo',
+        pages: 3,
+      },
+      {
+        id: 'hugo-award',
+        label: 'Japan Award',
+        title: 'Hanshi Hugo Sosa Japan Award',
+        description: 'Japan award diploma presented to Hanshi Hugo Sosa.',
+        type: 'image',
+        image: '/images/awards/hanshi-hugo-japan-award-2025.jpg',
+        alt: 'Japan award diploma for Hanshi Hugo Sosa',
+      },
+    ],
   },
   {
     id: 'jorge-sosa-jr',
@@ -22,6 +43,26 @@ const staff = [
       'In addition to his training in Judō and KarateDō, he received comprehensive instruction in Ryū-Kyū Kobudō, Ninpō, Taijutsu, Kendō, and Iaidō, developing a solid foundation in a wide range of traditional Japanese martial arts.',
       'Throughout his martial arts career, Hanshi Jorge had the privilege of training under several distinguished Japanese masters, including Nidaime Kenei Mabuni, Daishi Nobuyoshi Murata, Hanshi Misakazu Konishi, and Hanshi Fumio Demura.',
       'During his youth, he frequently accompanied his father on numerous teaching and training trips, participating in demonstrations of KarateDō, Ryū-Kyū Kobudō, Taijutsu, Iaidō, Kendō, Judō, and Ninpō. These experiences played a significant role in strengthening both his technical skills and his understanding of the philosophy and traditional values of Budō.',
+    ],
+    documents: [
+      {
+        id: 'jorge-jr-resume',
+        label: 'Resume',
+        title: 'Hanshi Jorge Sosa Jr. Resume',
+        description: 'Official Budō resume and martial arts background for Hanshi Jorge Sosa Jr.',
+        pdf: '/documents/resumes/hanshi-jorge-sosa-jr-resume-2026.pdf',
+        basePath: '/images/resumes/jorge-jr',
+        pages: 3,
+      },
+      {
+        id: 'jorge-jr-award',
+        label: 'Japan Award',
+        title: 'Hanshi Jorge Sosa Jr. Japan Award',
+        description: 'Japan award diploma presented to Hanshi Jorge Sosa Jr.',
+        type: 'image',
+        image: '/images/awards/hanshi-jorge-sosa-jr-japan-award-2025.jpg',
+        alt: 'Japan award diploma for Hanshi Jorge Sosa Jr.',
+      },
     ],
   },
 ]
@@ -52,6 +93,11 @@ export default function TechnicalStaff() {
               <div className="document-copy">
                 {member.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               </div>
+              <DocumentTabs
+                title={`${member.name} Documents`}
+                intro="Select a tab to review the resume or Japan award diploma."
+                items={member.documents}
+              />
             </article>
           ))}
 

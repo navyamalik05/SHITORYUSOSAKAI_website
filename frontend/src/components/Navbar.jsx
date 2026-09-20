@@ -60,7 +60,7 @@ export default function Navbar() {
           </li>
 
           <li className="nav-item">
-            <a href="#" className="nav-link" onClick={(e) => e.preventDefault()}>HALL OF FAME</a>
+            <Link to="/hall-of-fame" className="nav-link" onClick={closeMenu}>HALL OF FAME</Link>
           </li>
 
           <li className="nav-item dropdown">
