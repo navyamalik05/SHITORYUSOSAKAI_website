@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify, send_file, send_from
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from sqlalchemy import inspect, text
-from datetime import datetime
+from datetime import datetime, timedelta
 from email.message import EmailMessage
 from functools import wraps
 from io import BytesIO
@@ -11,8 +11,10 @@ import secrets
 import smtplib
 import ssl
 import os
+import json
 from urllib.parse import urlparse
 from werkzeug.utils import secure_filename
+from werkzeug.security import check_password_hash
 
 # Initialize Flask without its automatic static route. The catch-all route
 # below serves real files from the React build and falls back to index.html
@@ -32,6 +34,7 @@ app.config['MAX_CONTENT_LENGTH'] = 80 * 1024 * 1024
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 app.config['SESSION_COOKIE_SECURE'] = bool(os.environ.get('RENDER'))
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=8)
 
 ALLOWED_ADMIN_EMAILS = {
     'malikna1@msu.edu',
@@ -48,6 +51,14 @@ ALLOWED_MEDIA_TYPES = {
     'video/mp4': 'video',
     'video/webm': 'video',
     'video/quicktime': 'video',
+}
+
+TRAINING_PROGRAMS = {
+    'karatedo',
+    'kobudo',
+    'iaido',
+    'taijutsu',
+    'ninpo',
 }
 
 # Initialize database
@@ -184,6 +195,42 @@ def admin_required(view):
     return wrapped
 
 
+def training_required(view):
+    @wraps(view)
+    def wrapped(*args, **kwargs):
+        if not session.get('training_username'):
+            return jsonify({'error': 'Member login required'}), 401
+        return view(*args, **kwargs)
+    return wrapped
+
+
+def safe_json_environment(name):
+    raw_value = os.environ.get(name, '').strip()
+    if not raw_value:
+        return {}
+    try:
+        parsed = json.loads(raw_value)
+    except json.JSONDecodeError:
+        app.logger.error('%s must contain valid JSON', name)
+        return {}
+    return parsed if isinstance(parsed, dict) else {}
+
+
+def password_matches(candidate, configured_value):
+    configured_value = str(configured_value or '')
+    if configured_value.startswith(('pbkdf2:', 'scrypt:')):
+        return check_password_hash(configured_value, candidate)
+    return bool(configured_value) and secrets.compare_digest(candidate, configured_value)
+
+
+def normalized_programs(values):
+    if values == '*':
+        return sorted(TRAINING_PROGRAMS)
+    if not isinstance(values, list):
+        return []
+    return sorted({str(value).lower() for value in values} & TRAINING_PROGRAMS)
+
+
 def clean_text(value, limit):
     return str(value or '').strip()[:limit]
 
@@ -260,15 +307,95 @@ def admin_login():
     if email not in ALLOWED_ADMIN_EMAILS or not secrets.compare_digest(password, configured_password):
         return jsonify({'error': 'Invalid email or password'}), 401
 
-    session.clear()
+    session.pop('admin_email', None)
     session['admin_email'] = email
     return jsonify({'authenticated': True, 'email': email})
 
 
 @app.route('/api/admin/logout', methods=['POST'])
 def admin_logout():
-    session.clear()
+    session.pop('admin_email', None)
     return jsonify({'authenticated': False})
+
+
+@app.route('/api/training/session', methods=['GET'])
+def training_session_status():
+    username = session.get('training_username')
+    programs = normalized_programs(session.get('training_programs', []))
+    return jsonify({
+        'authenticated': bool(username),
+        'username': username,
+        'programs': programs,
+        'administrator': bool(session.get('training_administrator')),
+    })
+
+
+@app.route('/api/training/login', methods=['POST'])
+def training_login():
+    data = request.get_json(silent=True) or {}
+    username = clean_text(data.get('username'), 120).lower()
+    password = str(data.get('password') or '')
+    if not username or not password:
+        return jsonify({'error': 'Please enter your member ID and password'}), 400
+
+    programs = []
+    administrator = False
+    configured_admin_password = os.environ.get('ADMIN_SHARED_PASSWORD')
+
+    if username in ALLOWED_ADMIN_EMAILS and password_matches(password, configured_admin_password):
+        programs = sorted(TRAINING_PROGRAMS)
+        administrator = True
+    else:
+        member = safe_json_environment('TRAINING_MEMBER_CREDENTIALS').get(username)
+        if not isinstance(member, dict) or not password_matches(password, member.get('password') or member.get('password_hash')):
+            return jsonify({'error': 'Invalid member ID or password'}), 401
+        programs = normalized_programs(member.get('programs', []))
+
+    session.pop('training_username', None)
+    session.pop('training_programs', None)
+    session.pop('training_administrator', None)
+    session.permanent = True
+    session['training_username'] = username
+    session['training_programs'] = programs
+    session['training_administrator'] = administrator
+    return jsonify({
+        'authenticated': True,
+        'username': username,
+        'programs': programs,
+        'administrator': administrator,
+    })
+
+
+@app.route('/api/training/unlock', methods=['POST'])
+@training_required
+def training_unlock_program():
+    data = request.get_json(silent=True) or {}
+    program = clean_text(data.get('program'), 40).lower()
+    password = str(data.get('password') or '')
+    if program not in TRAINING_PROGRAMS:
+        return jsonify({'error': 'Unknown training program'}), 400
+
+    unlocked = set(normalized_programs(session.get('training_programs', [])))
+    if session.get('training_administrator') or program in unlocked:
+        return jsonify({'programs': sorted(unlocked or TRAINING_PROGRAMS)})
+
+    configured_password = safe_json_environment('TRAINING_PROGRAM_PASSWORDS').get(program)
+    if not configured_password:
+        return jsonify({'error': 'Access for this program has not been configured yet'}), 503
+    if not password_matches(password, configured_password):
+        return jsonify({'error': 'Incorrect program password'}), 401
+
+    unlocked.add(program)
+    session['training_programs'] = sorted(unlocked)
+    return jsonify({'programs': sorted(unlocked)})
+
+
+@app.route('/api/training/logout', methods=['POST'])
+def training_logout():
+    session.pop('training_username', None)
+    session.pop('training_programs', None)
+    session.pop('training_administrator', None)
+    return jsonify({'authenticated': False, 'programs': []})
 
 @app.route('/api/programs', methods=['GET'])
 def get_programs():

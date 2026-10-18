@@ -11,6 +11,7 @@ import Programs from './pages/Programs.jsx'
 import Contact from './pages/Contact.jsx'
 import Events from './pages/Events.jsx'
 import Members from './pages/Members.jsx'
+import TrainingProgram from './pages/TrainingProgram.jsx'
 import AffiliatedDojos from './pages/AffiliatedDojos.jsx'
 import History from './pages/History.jsx'
 import HallOfFame from './pages/HallOfFame.jsx'
@@ -49,6 +50,7 @@ export default function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/hall-of-fame" element={<HallOfFame />} />
           <Route path="/members" element={<Members />} />
+          <Route path="/members/training-program" element={<TrainingProgram />} />
           <Route path="/affiliated-dojos" element={<AffiliatedDojos />} />
         </Routes>
       </main>

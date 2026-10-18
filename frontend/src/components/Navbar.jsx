@@ -69,7 +69,7 @@ export default function Navbar() {
               <span className="dropdown-arrow"></span>
             </Link>
             <ul className="dropdown-menu">
-              <li><Link to="/members#training-program" onClick={closeMenu}>Training Program</Link></li>
+              <li><Link to="/members/training-program" onClick={closeMenu}>Training Program</Link></li>
               <li><Link to="/members#classes" onClick={closeMenu}>Classes</Link></li>
             </ul>
           </li>

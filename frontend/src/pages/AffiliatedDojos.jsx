@@ -37,12 +37,20 @@ const charts = [
     pdf: 'taijutsu-chart.pdf',
     pages: 3,
   },
+  {
+    id: 'dojos-chart',
+    shortTitle: 'Dōjōs',
+    title: 'World Budō Sosa-Kai Dōjōs Chart',
+    description: 'Official worldwide organization chart of World Budō Sosa-Kai leaders, directors, and affiliated Dōjōs.',
+    slug: 'dojos',
+    pdf: 'world-budo-sosa-kai-dojo-chart.pdf',
+    pages: 9,
+  },
 ]
 
 const navigationItems = [
   { id: 'karatedo-black-belt-chart', label: 'KarateDō Black Belt' },
-  ...charts.map((chart) => ({ id: chart.id, label: chart.shortTitle })),
-  { id: 'dojos-chart', label: 'Affiliated Dōjōs' },
+  ...charts.map((chart) => ({ id: chart.id, label: chart.id === 'dojos-chart' ? 'Dōjōs Chart' : chart.shortTitle })),
 ]
 
 function ChartPanel({ chart }) {
@@ -124,13 +132,7 @@ export default function AffiliatedDojos() {
                 <p>The World Budō Sosa-Kai KarateDō black belt chart and member record are maintained in the Members section.</p>
                 <Link className="link-button" to="/members#chart">View the KarateDō Black Belt Chart →</Link>
               </div>
-            ) : (
-              <div className="affiliated-empty-state">
-                <p className="chart-section-label">WORLDWIDE DIRECTORY</p>
-                <h2>Affiliated Dōjōs</h2>
-                <p>The directory of affiliated World Budō Sosa-Kai Dōjōs will be published here.</p>
-              </div>
-            )}
+            ) : null}
           </section>
         </div>
       </div>
