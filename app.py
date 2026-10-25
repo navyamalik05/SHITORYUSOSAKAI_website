@@ -15,11 +15,15 @@ import json
 from urllib.parse import urlparse
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
 # Initialize Flask without its automatic static route. The catch-all route
 # below serves real files from the React build and falls back to index.html
 # for client-side routes such as /programs and /members.
 DIST_DIR = os.path.join(os.path.dirname(__file__), 'frontend', 'dist')
+PROTECTED_CURRICULA_DIR = os.path.join(os.path.dirname(__file__), 'protected_curricula')
 app = Flask(__name__)
 CORS(app)
 
@@ -59,6 +63,14 @@ TRAINING_PROGRAMS = {
     'iaido',
     'taijutsu',
     'ninpo',
+}
+
+CURRICULUM_FILES = {
+    'karatedo': {'document': 'karatedo-curriculum.wbsk', 'preview': 'karatedo-preview.wbsk', 'download': 'KarateDo-Sosa-Kai-Curriculum.pdf'},
+    'kobudo': {'document': 'kobudo-curriculum.wbsk', 'preview': 'kobudo-preview.wbsk', 'download': 'Ryu-Kyu-Kobudo-Sosa-Kai-Curriculum.pdf'},
+    'iaido': {'document': 'iaido-curriculum.wbsk', 'preview': 'iaido-preview.wbsk', 'download': 'Iaido-Tora-Ryu-Sosa-Kai-Curriculum.pdf'},
+    'taijutsu': {'document': 'taijutsu-curriculum.wbsk', 'preview': 'taijutsu-preview.wbsk', 'download': 'Tai-Jutsu-Godai-Ryu-Sosa-Kai-Curriculum.pdf'},
+    'ninpo': {'document': 'ninpo-curriculum.wbsk', 'preview': 'ninpo-preview.wbsk', 'download': 'Yukibushi-Ninpo-Kai-Curriculum.pdf'},
 }
 
 # Initialize database
@@ -223,6 +235,30 @@ def password_matches(candidate, configured_value):
     return bool(configured_value) and secrets.compare_digest(candidate, configured_value)
 
 
+def decrypt_curriculum(program, password, asset='document'):
+    curriculum = CURRICULUM_FILES[program]
+    encrypted_name = curriculum[asset]
+    encrypted_path = os.path.join(PROTECTED_CURRICULA_DIR, encrypted_name)
+    with open(encrypted_path, 'rb') as encrypted_file:
+        payload = encrypted_file.read()
+
+    if len(payload) < 33 or payload[:4] != b'WBSK':
+        raise ValueError('Invalid protected curriculum file')
+
+    salt = payload[4:20]
+    nonce = payload[20:32]
+    ciphertext = payload[32:]
+    key = PBKDF2HMAC(
+        algorithm=hashes.SHA256(),
+        length=32,
+        salt=salt,
+        iterations=390000,
+    ).derive(password.encode('utf-8'))
+    associated_data = program if asset == 'document' else f'{program}-preview'
+    plaintext = AESGCM(key).decrypt(nonce, ciphertext, associated_data.encode('utf-8'))
+    return plaintext
+
+
 def normalized_programs(values):
     if values == '*':
         return sorted(TRAINING_PROGRAMS)
@@ -343,13 +379,11 @@ def training_login():
     configured_admin_password = os.environ.get('ADMIN_SHARED_PASSWORD')
 
     if username in ALLOWED_ADMIN_EMAILS and password_matches(password, configured_admin_password):
-        programs = sorted(TRAINING_PROGRAMS)
         administrator = True
     else:
         member = safe_json_environment('TRAINING_MEMBER_CREDENTIALS').get(username)
         if not isinstance(member, dict) or not password_matches(password, member.get('password') or member.get('password_hash')):
             return jsonify({'error': 'Invalid member ID or password'}), 401
-        programs = normalized_programs(member.get('programs', []))
 
     session.pop('training_username', None)
     session.pop('training_programs', None)
@@ -376,8 +410,8 @@ def training_unlock_program():
         return jsonify({'error': 'Unknown training program'}), 400
 
     unlocked = set(normalized_programs(session.get('training_programs', [])))
-    if session.get('training_administrator') or program in unlocked:
-        return jsonify({'programs': sorted(unlocked or TRAINING_PROGRAMS)})
+    if program in unlocked:
+        return jsonify({'programs': sorted(unlocked)})
 
     configured_password = safe_json_environment('TRAINING_PROGRAM_PASSWORDS').get(program)
     if not configured_password:
@@ -388,6 +422,68 @@ def training_unlock_program():
     unlocked.add(program)
     session['training_programs'] = sorted(unlocked)
     return jsonify({'programs': sorted(unlocked)})
+
+
+@app.route('/api/training/curriculum/<program>', methods=['GET'])
+@training_required
+def training_curriculum_document(program):
+    program = clean_text(program, 40).lower()
+    if program not in CURRICULUM_FILES:
+        return jsonify({'error': 'Unknown training program'}), 404
+
+    unlocked = set(normalized_programs(session.get('training_programs', [])))
+    if program not in unlocked:
+        return jsonify({'error': 'Enter this program password first'}), 403
+
+    configured_password = safe_json_environment('TRAINING_PROGRAM_PASSWORDS').get(program)
+    if not configured_password:
+        return jsonify({'error': 'Access for this program has not been configured yet'}), 503
+
+    try:
+        document = decrypt_curriculum(program, str(configured_password))
+    except (OSError, ValueError):
+        app.logger.exception('Protected curriculum could not be opened for %s', program)
+        return jsonify({'error': 'This curriculum is temporarily unavailable'}), 503
+
+    response = send_file(
+        BytesIO(document),
+        mimetype='application/pdf',
+        download_name=CURRICULUM_FILES[program]['download'],
+        as_attachment=request.args.get('download') == '1',
+        max_age=0,
+    )
+    response.headers['Cache-Control'] = 'private, no-store, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    return response
+
+
+@app.route('/api/training/curriculum/<program>/preview', methods=['GET'])
+@training_required
+def training_curriculum_preview(program):
+    program = clean_text(program, 40).lower()
+    if program not in CURRICULUM_FILES:
+        return jsonify({'error': 'Unknown training program'}), 404
+
+    unlocked = set(normalized_programs(session.get('training_programs', [])))
+    if program not in unlocked:
+        return jsonify({'error': 'Enter this program password first'}), 403
+
+    configured_password = safe_json_environment('TRAINING_PROGRAM_PASSWORDS').get(program)
+    if not configured_password:
+        return jsonify({'error': 'Access for this program has not been configured yet'}), 503
+
+    try:
+        preview = decrypt_curriculum(program, str(configured_password), asset='preview')
+    except (OSError, ValueError):
+        app.logger.exception('Protected curriculum preview could not be opened for %s', program)
+        return jsonify({'error': 'This curriculum is temporarily unavailable'}), 503
+
+    response = send_file(BytesIO(preview), mimetype='image/jpeg', max_age=0)
+    response.headers['Cache-Control'] = 'private, no-store, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    return response
 
 
 @app.route('/api/training/logout', methods=['POST'])

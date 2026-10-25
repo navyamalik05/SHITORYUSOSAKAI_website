@@ -179,10 +179,17 @@ export default function TrainingProgram() {
                   <div><span>{unlocked ? 'Access Granted' : 'Protected Program'}</span><h3>{discipline.name}</h3></div>
                 </div>
                 {unlocked ? (
-                  <details>
-                    <summary>View Ranking Requirements</summary>
-                    <ol>{discipline.ranks.map((rank) => <li key={rank}>{rank}</li>)}</ol>
-                  </details>
+                  <div className="protected-curriculum-viewer">
+                    <div className="protected-curriculum-actions">
+                      <strong>{discipline.name} Curriculum</strong>
+                      <a href={`/api/training/curriculum/${discipline.id}`} target="_blank" rel="noreferrer">Open full size ↗</a>
+                    </div>
+                    <img src={`/api/training/curriculum/${discipline.id}/preview`} alt={`${discipline.name} protected curriculum`} />
+                    <details>
+                      <summary>View Ranking Requirements</summary>
+                      <ol>{discipline.ranks.map((rank) => <li key={rank}>{rank}</li>)}</ol>
+                    </details>
+                  </div>
                 ) : (
                   <form onSubmit={(event) => unlockProgram(event, discipline.id)}>
                     <label htmlFor={`${discipline.id}-password`}>{discipline.name} program password</label>
