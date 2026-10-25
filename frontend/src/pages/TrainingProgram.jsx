@@ -41,12 +41,35 @@ const curriculumTopics = [
   'Sosa-Kai Way of Life Standards',
 ]
 
+const programTabs = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'training', label: 'Training Focus' },
+  { id: 'heritage', label: 'Heritage' },
+  { id: 'curriculum', label: 'Curriculum' },
+]
+
+const demoContent = {
+  overview: {
+    title: 'About this martial art',
+    text: 'Demo text: This program introduces the history, purpose, etiquette, and core methods of the discipline. Students develop confidence, awareness, coordination, and respect through consistent practice.',
+  },
+  training: {
+    title: 'What students practice',
+    text: 'Demo text: Classes combine foundational movement, technical exercises, partner practice, and progressive skill development. Training is adapted to the student’s experience while preserving traditional standards.',
+  },
+  heritage: {
+    title: 'Tradition and lineage',
+    text: 'Demo text: This discipline is taught as part of the World Budō Sosa-Kai tradition. Future content will explain its masters, lineage, cultural background, and continuing role within the organization.',
+  },
+}
+
 export default function TrainingProgram() {
   const [session, setSession] = useState({ loading: true, authenticated: false, programs: [] })
   const [credentials, setCredentials] = useState({ username: '', password: '' })
   const [programPasswords, setProgramPasswords] = useState({})
   const [message, setMessage] = useState('')
   const [busy, setBusy] = useState(false)
+  const [activeTabs, setActiveTabs] = useState(() => Object.fromEntries(disciplines.map(({ id }) => [id, 'overview'])))
 
   useEffect(() => {
     fetch('/api/training/session')
@@ -169,16 +192,44 @@ export default function TrainingProgram() {
 
         {message && <p className="training-form-message curriculum-message" role="alert">{message}</p>}
 
-        <div className="training-program-grid">
+        <nav className="training-program-jump-nav" aria-label="Martial arts programs">
+          {disciplines.map((discipline) => <a href={`#${discipline.id}`} key={discipline.id}>{discipline.name}</a>)}
+        </nav>
+
+        <div className="training-program-pages">
           {disciplines.map((discipline) => {
             const unlocked = session.programs?.includes(discipline.id)
+            const activeTab = activeTabs[discipline.id] || 'overview'
             return (
-              <article className={`training-program-card ${unlocked ? 'is-unlocked' : 'is-locked'}`} key={discipline.id}>
+              <article id={discipline.id} className={`training-program-card training-program-page ${unlocked ? 'is-unlocked' : 'is-locked'}`} key={discipline.id}>
                 <div className="training-program-title">
                   <img src={discipline.logo} alt="" />
                   <div><span>{unlocked ? 'Access Granted' : 'Protected Program'}</span><h3>{discipline.name}</h3></div>
                 </div>
-                {unlocked ? (
+
+                <div className="training-program-tabs" role="tablist" aria-label={`${discipline.name} information`}>
+                  {programTabs.map((tab) => (
+                    <button
+                      type="button"
+                      role="tab"
+                      aria-selected={activeTab === tab.id}
+                      className={activeTab === tab.id ? 'is-active' : ''}
+                      onClick={() => setActiveTabs((current) => ({ ...current, [discipline.id]: tab.id }))}
+                      key={tab.id}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+
+                {activeTab !== 'curriculum' ? (
+                  <div className="training-program-tab-panel" role="tabpanel">
+                    <p className="chart-section-label">{discipline.name}</p>
+                    <h4>{demoContent[activeTab].title}</h4>
+                    <p>{demoContent[activeTab].text}</p>
+                    <button type="button" className="program-curriculum-cta" onClick={() => setActiveTabs((current) => ({ ...current, [discipline.id]: 'curriculum' }))}>View protected curriculum</button>
+                  </div>
+                ) : unlocked ? (
                   <div className="protected-curriculum-viewer">
                     <div className="protected-curriculum-actions">
                       <strong>{discipline.name} Curriculum</strong>
@@ -191,7 +242,9 @@ export default function TrainingProgram() {
                     </details>
                   </div>
                 ) : (
-                  <form onSubmit={(event) => unlockProgram(event, discipline.id)}>
+                  <form className="program-unlock-panel" onSubmit={(event) => unlockProgram(event, discipline.id)}>
+                    <h4>Unlock the {discipline.name} curriculum</h4>
+                    <p>This curriculum is available only to authorized students of this discipline.</p>
                     <label htmlFor={`${discipline.id}-password`}>{discipline.name} program password</label>
                     <div className="program-password-row">
                       <input id={`${discipline.id}-password`} type="password" autoComplete="off" value={programPasswords[discipline.id] || ''} onChange={(event) => setProgramPasswords({ ...programPasswords, [discipline.id]: event.target.value })} required />

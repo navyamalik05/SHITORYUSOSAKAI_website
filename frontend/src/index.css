@@ -1107,6 +1107,42 @@ body {
     gap: 1rem;
 }
 
+.training-program-jump-nav {
+    position: sticky;
+    top: 0;
+    z-index: 8;
+    display: flex;
+    gap: 0.65rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 0 1.5rem;
+    padding: 0.85rem;
+    border: 1px solid #d5e0ea;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 8px 24px rgba(24, 54, 82, 0.1);
+}
+
+.training-program-jump-nav a {
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    background: #edf4fa;
+    color: #183a5b;
+    font-size: 0.88rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.training-program-jump-nav a:hover {
+    background: var(--primary-blue);
+    color: #fff;
+}
+
+.training-program-pages {
+    display: grid;
+    gap: 2rem;
+}
+
 .training-program-card {
     padding: 1.25rem;
     border: 1px solid #d5e0ea;
@@ -1114,6 +1150,73 @@ body {
     border-radius: 10px;
     background: #fff;
     box-shadow: 0 7px 20px rgba(24, 54, 82, 0.08);
+}
+
+.training-program-page {
+    min-height: min(760px, 82vh);
+    scroll-margin-top: 6rem;
+    padding: clamp(1.35rem, 4vw, 3rem);
+}
+
+.training-program-page .training-program-title img {
+    width: 96px;
+    height: 96px;
+}
+
+.training-program-page .training-program-title h3 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.training-program-tabs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0 0;
+    border-bottom: 2px solid #dbe5ed;
+}
+
+.training-program-tabs button {
+    margin-bottom: -2px;
+    padding: 0.85rem 1.1rem;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    border-radius: 8px 8px 0 0;
+    background: transparent;
+    color: #526779;
+}
+
+.training-program-tabs button:hover,
+.training-program-tabs button.is-active {
+    border-bottom-color: #1b9a5a;
+    background: #edf8f2;
+    color: #14683e;
+}
+
+.training-program-tab-panel,
+.program-unlock-panel {
+    max-width: 900px;
+    padding: clamp(1.5rem, 4vw, 3rem) 0;
+}
+
+.training-program-tab-panel h4,
+.program-unlock-panel h4 {
+    margin: 0.35rem 0 1rem;
+    color: #183a5b;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+}
+
+.training-program-tab-panel > p:not(.chart-section-label),
+.program-unlock-panel > p {
+    max-width: 760px;
+    color: #4b6072;
+    font-size: 1.08rem;
+    line-height: 1.8;
+}
+
+.program-curriculum-cta {
+    margin-top: 1.25rem;
+    padding: 0.85rem 1.25rem;
 }
 
 .training-program-card.is-unlocked {
@@ -1175,6 +1278,7 @@ body {
 .protected-curriculum-viewer {
     display: grid;
     gap: 0.9rem;
+    padding-top: 2rem;
 }
 
 .protected-curriculum-actions {
@@ -1235,6 +1339,18 @@ body {
 
     .training-brand-panel {
         margin-inline: 1rem;
+    }
+
+    .training-program-jump-nav {
+        position: static;
+    }
+
+    .training-program-page {
+        min-height: auto;
+    }
+
+    .training-program-tabs button {
+        flex: 1 1 calc(50% - 0.5rem);
     }
 }
 
