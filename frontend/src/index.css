@@ -1175,6 +1175,24 @@ body {
     border-bottom: 2px solid #dbe5ed;
 }
 
+.training-program-description {
+    max-width: 980px;
+    padding: 1.5rem 0 0.5rem;
+}
+
+.training-program-description h4 {
+    margin: 0.35rem 0 1rem;
+    color: #183a5b;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.55rem, 3.5vw, 2.35rem);
+}
+
+.training-program-description > p:last-child {
+    color: #3f566a;
+    font-size: 1.08rem;
+    line-height: 1.8;
+}
+
 .training-program-tabs button {
     margin-bottom: -2px;
     padding: 0.85rem 1.1rem;
@@ -1217,6 +1235,26 @@ body {
 .program-curriculum-cta {
     margin-top: 1.25rem;
     padding: 0.85rem 1.25rem;
+}
+
+.protected-curriculum-section {
+    margin-top: 1rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid #d9e3eb;
+}
+
+.protected-curriculum-heading span {
+    color: #147744;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.protected-curriculum-heading h4 {
+    margin: 0.3rem 0 0;
+    color: #183a5b;
+    font-size: 1.35rem;
 }
 
 .training-program-card.is-unlocked {

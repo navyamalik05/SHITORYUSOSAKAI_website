@@ -6,30 +6,45 @@ const disciplines = [
     id: 'karatedo',
     name: 'KarateDō',
     logo: '/images/logo-karatedo.jpg',
+    curriculumTitle: 'KarateDō Shitō-Ryū Sosa-Kai Curriculum',
+    description: 'KarateDō developed in Okinawa through the martial traditions of Naha, Shuri, and Tomari. World Budō Sosa-Kai preserves the traditional Kata and training curriculum of Sōke Kenwa Mabuni and passes this technical and historical legacy to future generations as part of its commitment to Budō.',
+    topics: ['KarateDō Terminology', 'Bowing Procedure', 'Junbi-Undō', 'Kihon-Dōsa', 'Kata', 'Bunkai-Kumite', 'Kumite', 'Kuro-Obi Chart', 'Ranking Requirements'],
     ranks: ['Jū-Kyū (10) to Kyū-Kyū (9)', 'Kyū-Kyū (9) to Hachi-Kyū (8)', 'Hachi-Kyū (8) to Nana-Kyū (7)', 'Nana-Kyū (7) to Roku-Kyū (6)', 'Roku-Kyū (6) to Go-Kyū (5)', 'Go-Kyū (5) to Yon-Kyū (4)', 'Yon-Kyū (4) to San-Kyū (3)', 'San-Kyū (3) to Ni-Kyū (2)', 'Ni-Kyū (2) to Ik-Kyū (1)', 'Ik-Kyū (1) to Shodan', 'Shodan to Nidan', 'Nidan to Sandan', 'Sandan to Yondan', 'Yondan to Godan'],
   },
   {
     id: 'kobudo',
     name: 'Ryū Kyū Kobudō',
     logo: '/images/logo-kobudo.jpg',
+    curriculumTitle: 'Ryū Kyū Kobudō Tora-Ryū Sosa-Kai Curriculum',
+    description: 'Ryū Kyū Kobudō developed across the Ryū Kyū Islands, especially Okinawa, through local combat traditions and the use of everyday tools such as the Bō, Sai, Nunchaku, Tonfa, and Kama. The Sosa-Kai curriculum carries forward the knowledge transmitted to Daishi Jorge Sosa Sr. and developed through the organization’s senior masters.',
+    topics: ['Ryū Kyū Kobudō Terminology', 'Goshin-Gu Description', 'Bowing Procedure', 'Okinawan Origins', 'Keikogi', 'Ranking Requirements', 'Kata Table', 'Kata', 'Ippon-Kumite'],
     ranks: ['Shoshinsha (8) to Nana-Kyū (7)', 'Nana-Kyū (7) to Roku-Kyū (6)', 'Roku-Kyū (6) to Go-Kyū (5)', 'Go-Kyū (5) to Yon-Kyū (4)', 'Yon-Kyū (4) to San-Kyū (3)', 'San-Kyū (3) to Ni-Kyū (2)', 'Ni-Kyū (2) to Ik-Kyū (1)', 'Ik-Kyū (1) to Shodan', 'Shodan to Nidan', 'Nidan to Sandan', 'Sandan to Yondan', 'Yondan to Godan'],
   },
   {
     id: 'iaido',
     name: 'Iaidō',
     logo: '/images/logo-iaido.jpg',
+    curriculumTitle: 'Iaidō Tora-Ryū Sosa-Kai Curriculum',
+    description: 'Iaidō is the Japanese art of handling the Katana, emphasizing drawing the sword, precise technique, and returning it to the scabbard. The Tora-Ryū Sosa-Kai curriculum draws upon knowledge transmitted by Masters Kenei Mabuni, Fumio Demura, and Misakazu Konishi and preserves that legacy for future generations.',
+    topics: ['Iaidō Terminology', 'Bowing Procedure', 'Iaidō Keikogi', 'Ranking Requirements', 'Kihon-Dōsa', 'Kamae-Waza', 'Kiri-Waza', 'Kumite', 'Kata'],
     ranks: ['Shoshinsha (6) to Go-Kyū (5)', 'Go-Kyū (5) to Yon-Kyū (4)', 'Yon-Kyū (4) to San-Kyū (3)', 'San-Kyū (3) to Ni-Kyū (2)', 'Ni-Kyū (2) to Ik-Kyū (1)', 'Ik-Kyū (1) to Shodan', 'Shodan to Nidan', 'Nidan to Sandan', 'Sandan to Yondan', 'Yondan to Godan'],
   },
   {
     id: 'taijutsu',
     name: 'Taijutsu',
     logo: '/images/logo-taijutsu.png',
+    curriculumTitle: 'Tai-Jutsu Godai-Ryū Sosa-Kai Curriculum',
+    description: 'Tai-Jutsu Godai-Ryū combines elements of Jūjutsu, Jūdō, and KarateDō as a comprehensive self-defense system. Rooted in the knowledge acquired by Daishi Jorge Sosa Sr., it uses the five elements - Earth, Water, Fire, Wind, and Void - to explore movement, adaptability, and effective defense.',
+    topics: ['Tai-Jutsu Terminology', 'Bowing Procedure', 'Kihon-Dōsa', 'Tenshin-Waza', 'Ukemi-Waza', 'Ha-Waza', 'Gyaku-Waza', 'Se-Tsu-Kin-Sen', 'Ranking Requirements'],
     ranks: ['Shoshinsha (8) to Nana-Kyū (7)', 'Nana-Kyū (7) to Roku-Kyū (6)', 'Roku-Kyū (6) to Go-Kyū (5)', 'Go-Kyū (5) to Yon-Kyū (4)', 'Yon-Kyū (4) to San-Kyū (3)', 'San-Kyū (3) to Ni-Kyū (2)', 'Ni-Kyū (2) to Ik-Kyū (1)', 'Ik-Kyū (1) to Shodan', 'Shodan to Nidan', 'Nidan to Sandan', 'Sandan to Yondan', 'Yondan to Godan'],
   },
   {
     id: 'ninpo',
     name: 'Ninpō',
     logo: '/images/logo-ninpo.jpg',
+    curriculumTitle: 'Yukibushi Ninpō-Kai Curriculum',
+    description: 'Ninpō is the traditional art of the strategic warrior, combining stealth, endurance, perseverance, survival, agile movement, and unconventional tactics. Sosa-Kai follows the Kōga-Ryū tradition and continues the knowledge transmitted through Seiko Fujita, Kenwa Mabuni, Kenei Mabuni, and Daishi Jorge Sosa Sr.',
+    topics: ['Ninpō Terminology', 'Bowing Procedure', 'Kuji Go Shin Ho', 'Taiso-Undō', 'Heihos', 'Ninjatō', 'Kamae-Waza', 'Kuro-Obi Chart', 'Ranking Requirements'],
     ranks: ['Karima (Beginner) to Shima Ik-Kai', 'Shima Ik-Kai to Shima Ni-Kai', 'Shima Ni-Kai to Genin Ik-Kai', 'Genin Ik-Kai to Genin Ni-Kai', 'Genin Ni-Kai to Chunin Ik-Kai', 'Chunin Ik-Kai to Chunin Ni-Kai', 'Chunin Ni-Kai to Chunin San-Kai', 'Chunin San-Kai to Yonin Shodan', 'Yonin Shodan to Yonin Nidan', 'Yonin Nidan to Yonin Sandan', 'Yonin Sandan to Yonin Yondan', 'Yonin Yondan to Yonin Godan'],
   },
 ]
@@ -41,26 +56,12 @@ const curriculumTopics = [
   'Sosa-Kai Way of Life Standards',
 ]
 
-const programTabs = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'training', label: 'Training Focus' },
-  { id: 'heritage', label: 'Heritage' },
-  { id: 'curriculum', label: 'Curriculum' },
-]
+function topicId(topic) {
+  return topic.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+}
 
-const demoContent = {
-  overview: {
-    title: 'About this martial art',
-    text: 'Demo text: This program introduces the history, purpose, etiquette, and core methods of the discipline. Students develop confidence, awareness, coordination, and respect through consistent practice.',
-  },
-  training: {
-    title: 'What students practice',
-    text: 'Demo text: Classes combine foundational movement, technical exercises, partner practice, and progressive skill development. Training is adapted to the student’s experience while preserving traditional standards.',
-  },
-  heritage: {
-    title: 'Tradition and lineage',
-    text: 'Demo text: This discipline is taught as part of the World Budō Sosa-Kai tradition. Future content will explain its masters, lineage, cultural background, and continuing role within the organization.',
-  },
+function demoTopicText(topic, discipline) {
+  return `Demo text: The ${topic} section for ${discipline} will contain detailed instruction, definitions, standards, and supporting training information. Final approved member content can replace this demonstration text.`
 }
 
 export default function TrainingProgram() {
@@ -69,7 +70,7 @@ export default function TrainingProgram() {
   const [programPasswords, setProgramPasswords] = useState({})
   const [message, setMessage] = useState('')
   const [busy, setBusy] = useState(false)
-  const [activeTabs, setActiveTabs] = useState(() => Object.fromEntries(disciplines.map(({ id }) => [id, 'overview'])))
+  const [activeTabs, setActiveTabs] = useState(() => Object.fromEntries(disciplines.map(({ id, topics }) => [id, topicId(topics[0])])))
 
   useEffect(() => {
     fetch('/api/training/session')
@@ -199,7 +200,8 @@ export default function TrainingProgram() {
         <div className="training-program-pages">
           {disciplines.map((discipline) => {
             const unlocked = session.programs?.includes(discipline.id)
-            const activeTab = activeTabs[discipline.id] || 'overview'
+            const activeTab = activeTabs[discipline.id] || topicId(discipline.topics[0])
+            const activeTopic = discipline.topics.find((topic) => topicId(topic) === activeTab) || discipline.topics[0]
             return (
               <article id={discipline.id} className={`training-program-card training-program-page ${unlocked ? 'is-unlocked' : 'is-locked'}`} key={discipline.id}>
                 <div className="training-program-title">
@@ -207,29 +209,41 @@ export default function TrainingProgram() {
                   <div><span>{unlocked ? 'Access Granted' : 'Protected Program'}</span><h3>{discipline.name}</h3></div>
                 </div>
 
+                <div className="training-program-description">
+                  <p className="chart-section-label">DŌJŌ OF KNOWLEDGE</p>
+                  <h4>{discipline.curriculumTitle}</h4>
+                  <p>{discipline.description}</p>
+                </div>
+
                 <div className="training-program-tabs" role="tablist" aria-label={`${discipline.name} information`}>
-                  {programTabs.map((tab) => (
+                  {discipline.topics.map((topic) => {
+                    const id = topicId(topic)
+                    return (
                     <button
                       type="button"
                       role="tab"
-                      aria-selected={activeTab === tab.id}
-                      className={activeTab === tab.id ? 'is-active' : ''}
-                      onClick={() => setActiveTabs((current) => ({ ...current, [discipline.id]: tab.id }))}
-                      key={tab.id}
+                      aria-selected={activeTab === id}
+                      className={activeTab === id ? 'is-active' : ''}
+                      onClick={() => setActiveTabs((current) => ({ ...current, [discipline.id]: id }))}
+                      key={id}
                     >
-                      {tab.label}
+                      {topic}
                     </button>
-                  ))}
+                  )})}
                 </div>
 
-                {activeTab !== 'curriculum' ? (
-                  <div className="training-program-tab-panel" role="tabpanel">
-                    <p className="chart-section-label">{discipline.name}</p>
-                    <h4>{demoContent[activeTab].title}</h4>
-                    <p>{demoContent[activeTab].text}</p>
-                    <button type="button" className="program-curriculum-cta" onClick={() => setActiveTabs((current) => ({ ...current, [discipline.id]: 'curriculum' }))}>View protected curriculum</button>
+                <div className="training-program-tab-panel" role="tabpanel">
+                  <p className="chart-section-label">{discipline.name}</p>
+                  <h4>{activeTopic}</h4>
+                  <p>{demoTopicText(activeTopic, discipline.name)}</p>
+                </div>
+
+                <div className="protected-curriculum-section">
+                  <div className="protected-curriculum-heading">
+                    <span>{unlocked ? 'Access Granted' : 'Authorized Members'}</span>
+                    <h4>Complete {discipline.name} Curriculum</h4>
                   </div>
-                ) : unlocked ? (
+                {unlocked ? (
                   <div className="protected-curriculum-viewer">
                     <div className="protected-curriculum-actions">
                       <strong>{discipline.name} Curriculum</strong>
@@ -252,6 +266,7 @@ export default function TrainingProgram() {
                     </div>
                   </form>
                 )}
+                </div>
               </article>
             )
           })}
