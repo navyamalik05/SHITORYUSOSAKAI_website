@@ -209,52 +209,56 @@ export default function TrainingProgram() {
                   <div><span>{unlocked ? 'Access Granted' : 'Protected Program'}</span><h3>{discipline.name}</h3></div>
                 </div>
 
-                <div className="training-program-description">
-                  <p className="chart-section-label">DŌJŌ OF KNOWLEDGE</p>
-                  <h4>{discipline.curriculumTitle}</h4>
-                  <p>{discipline.description}</p>
-                </div>
-
-                <div className="training-program-tabs" role="tablist" aria-label={`${discipline.name} information`}>
-                  {discipline.topics.map((topic) => {
-                    const id = topicId(topic)
-                    return (
-                    <button
-                      type="button"
-                      role="tab"
-                      aria-selected={activeTab === id}
-                      className={activeTab === id ? 'is-active' : ''}
-                      onClick={() => setActiveTabs((current) => ({ ...current, [discipline.id]: id }))}
-                      key={id}
-                    >
-                      {topic}
-                    </button>
-                  )})}
-                </div>
-
-                <div className="training-program-tab-panel" role="tabpanel">
-                  <p className="chart-section-label">{discipline.name}</p>
-                  <h4>{activeTopic}</h4>
-                  <p>{demoTopicText(activeTopic, discipline.name)}</p>
-                </div>
-
-                <div className="protected-curriculum-section">
-                  <div className="protected-curriculum-heading">
-                    <span>{unlocked ? 'Access Granted' : 'Authorized Members'}</span>
-                    <h4>Complete {discipline.name} Curriculum</h4>
-                  </div>
                 {unlocked ? (
-                  <div className="protected-curriculum-viewer">
-                    <div className="protected-curriculum-actions">
-                      <strong>{discipline.name} Curriculum</strong>
-                      <a href={`/api/training/curriculum/${discipline.id}`} target="_blank" rel="noreferrer">Open full size ↗</a>
+                  <>
+                    <div className="training-program-description">
+                      <p className="chart-section-label">DŌJŌ OF KNOWLEDGE</p>
+                      <h4>{discipline.curriculumTitle}</h4>
+                      <p>{discipline.description}</p>
                     </div>
-                    <img src={`/api/training/curriculum/${discipline.id}/preview`} alt={`${discipline.name} protected curriculum`} />
-                    <details>
-                      <summary>View Ranking Requirements</summary>
-                      <ol>{discipline.ranks.map((rank) => <li key={rank}>{rank}</li>)}</ol>
-                    </details>
-                  </div>
+
+                    <div className="training-program-tabs" role="tablist" aria-label={`${discipline.name} information`}>
+                      {discipline.topics.map((topic) => {
+                        const id = topicId(topic)
+                        return (
+                          <button
+                            type="button"
+                            role="tab"
+                            aria-selected={activeTab === id}
+                            className={activeTab === id ? 'is-active' : ''}
+                            onClick={() => setActiveTabs((current) => ({ ...current, [discipline.id]: id }))}
+                            key={id}
+                          >
+                            {topic}
+                          </button>
+                        )
+                      })}
+                    </div>
+
+                    <div className="training-program-tab-panel" role="tabpanel">
+                      <p className="chart-section-label">{discipline.name}</p>
+                      <h4>{activeTopic}</h4>
+                      <p>{demoTopicText(activeTopic, discipline.name)}</p>
+                    </div>
+
+                    <div className="protected-curriculum-section">
+                      <div className="protected-curriculum-heading">
+                        <span>Access Granted</span>
+                        <h4>Complete {discipline.name} Curriculum</h4>
+                      </div>
+                      <div className="protected-curriculum-viewer">
+                        <div className="protected-curriculum-actions">
+                          <strong>{discipline.name} Curriculum</strong>
+                          <a href={`/api/training/curriculum/${discipline.id}`} target="_blank" rel="noreferrer">Open full size ↗</a>
+                        </div>
+                        <img src={`/api/training/curriculum/${discipline.id}/preview`} alt={`${discipline.name} protected curriculum`} />
+                        <details>
+                          <summary>View Ranking Requirements</summary>
+                          <ol>{discipline.ranks.map((rank) => <li key={rank}>{rank}</li>)}</ol>
+                        </details>
+                      </div>
+                    </div>
+                  </>
                 ) : (
                   <form className="program-unlock-panel" onSubmit={(event) => unlockProgram(event, discipline.id)}>
                     <h4>Unlock the {discipline.name} curriculum</h4>
@@ -266,7 +270,6 @@ export default function TrainingProgram() {
                     </div>
                   </form>
                 )}
-                </div>
               </article>
             )
           })}
